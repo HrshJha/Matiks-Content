@@ -350,7 +350,7 @@ export default function TeardownPage() {
 <pre className="leading-[1.7]"><code className="block">
 <span className="text-[#c678dd]">async function</span> <span className="text-[#61afef]">processQueue</span>() {'{'}
   <span className="text-[#5c6370] italic">// 1. Lock the next available job to prevent race conditions</span>
-  <span className="text-[#c678dd]">const</span> job = <span className="text-[#c678dd]">await</span> db.<span className="text-[#61afef]">raw</span>(<span className="text-[#98c379]\`</span>
+  <span className="text-[#c678dd]">const</span> job = <span className="text-[#c678dd]">await</span> db.<span className="text-[#61afef]">raw</span>(<span className="text-[#98c379]">{"\`"}</span>
     <span className="text-[#98c379]">UPDATE content_queue</span>
     <span className="text-[#98c379]">SET status = 'processing', updated_at = now()</span>
     <span className="text-[#98c379]">WHERE id = (</span>
@@ -360,7 +360,7 @@ export default function TeardownPage() {
       <span className="text-[#98c379]">FOR UPDATE SKIP LOCKED</span>
       <span className="text-[#98c379]">LIMIT 1</span>
     <span className="text-[#98c379]">) RETURNING *;</span>
-  <span className="text-[#98c379]\`</span>);
+  <span className="text-[#98c379]">{"\`"}</span>);
 
   <span className="text-[#c678dd]">if</span> (!job) <span className="text-[#c678dd]">return</span>; <span className="text-[#5c6370] italic">// Queue is empty</span>
 
@@ -374,13 +374,13 @@ export default function TeardownPage() {
     
   {'}'} <span className="text-[#c678dd]">catch</span> (error) {'{'}
     <span className="text-[#5c6370] italic">// 2. The reality of API integrations: things break.</span>
-    <span className="text-[#c678dd]">await</span> db.<span className="text-[#61afef]">raw</span>(<span className="text-[#98c379]\`</span>
+    <span className="text-[#c678dd]">await</span> db.<span className="text-[#61afef]">raw</span>(<span className="text-[#98c379]">{"\`"}</span>
       <span className="text-[#98c379]">UPDATE content_queue </span>
       <span className="text-[#98c379]">SET status = 'failed', </span>
       <span className="text-[#98c379]">    error_log = ?,</span>
       <span className="text-[#98c379]">    retry_count = retry_count + 1</span>
       <span className="text-[#98c379]">WHERE id = ?</span>
-    <span className="text-[#98c379]\`</span>, [error.message, job.id]);
+    <span className="text-[#98c379]">{"\`"}</span>, [error.message, job.id]);
   {'}'}
 {'}'}
 </code></pre>
