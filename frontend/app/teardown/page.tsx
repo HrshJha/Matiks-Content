@@ -323,7 +323,7 @@ export default function TeardownPage() {
               <div className="pl-4 mt-2"><span className="text-[#5c6370] italic">-- The structured beats parsed by the video compiler</span></div>
               <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">script_payload</span> <span className="text-[#d19a66]">jsonb</span>,</div> 
               
-              <div className="pl-4 mt-2"><span className="text-[#5c6370] italic">-- Artifact pointers</span></div>
+              <div className="pl-4 mt-2"><span className="text-[#5c6370] italic">-- Media artifact pointers</span></div>
               <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">render_url</span> <span className="text-[#d19a66]">text</span>,</div>
               
               <div className="pl-4 mt-2"><span className="text-[#e06c75]">created_at</span> <span className="text-[#d19a66]">timestamptz</span> <span className="text-[#c678dd]">DEFAULT</span> <span className="text-[#56b6c2]">now</span>()</div>
