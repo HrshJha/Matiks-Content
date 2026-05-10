@@ -1,0 +1,10 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="96" fill="#0D0D0D"/>
+
+  <!-- Open frame mark -->
+  <path d="M160 128H352V176H208V304H160V128Z" fill="#F5F5F3"/>
+  <path d="M352 128V352H160V304H304V128H352Z" fill="#7FA38A"/>
+
+  <!-- Subtle inner geometry -->
+  <rect x="224" y="208" width="64" height="64" rx="8" fill="#F5F5F3" fill-opacity="0.9"/>
+</svg>
