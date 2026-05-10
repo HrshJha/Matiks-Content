@@ -36,8 +36,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark ${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} bg-background`}
+      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} bg-background`}
+      suppressHydrationWarning
     >
+      {/* Inline script runs before paint to apply the correct theme class, preventing FOUC */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `(function(){try{var t=localStorage.getItem('matiks-theme');document.documentElement.classList.toggle('dark',t!=='light')}catch(e){document.documentElement.classList.add('dark')}})();`,
+        }}
+      />
       <body className="font-sans antialiased text-foreground">
         {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
