@@ -305,7 +305,7 @@ export default function TeardownPage() {
               <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">id</span> <span className="text-[#d19a66]">uuid</span> <span className="text-[#c678dd]">PRIMARY KEY DEFAULT</span> <span className="text-[#56b6c2]">gen_random_uuid</span>(),</div>
               <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">channel_id</span> <span className="text-[#d19a66]">text</span> <span className="text-[#c678dd]">NOT NULL</span>,</div>
               
-              <div className="pl-4 mt-2"><span className="text-[#5c6370] italic">-- The state machine transitions</span></div>
+              <div className="pl-4 mt-2"><span className="text-[#5c6370] italic">-- The core state machine transitions</span></div>
               <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">status</span> <span className="text-[#d19a66]">text</span> <span className="text-[#c678dd]">NOT NULL CHECK</span> (</div>
               <div className="pl-8 break-all sm:break-normal">status <span className="text-[#c678dd]">IN</span> (<span className="text-[#98c379]">'ideation'</span>, <span className="text-[#98c379]">'scripting'</span>, <span className="text-[#98c379]">'asset_gen'</span>, <span className="text-[#98c379]">'qa'</span>, <span className="text-[#98c379]">'scheduled'</span>, <span className="text-[#98c379]">'failed'</span>)</div>
               <div className="pl-4">),</div>
