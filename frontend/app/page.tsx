@@ -1,6 +1,9 @@
 import Link from "next/link"
 import { AppShell } from "@/components/app-shell"
-import { CHANNELS, REELS, STAGES } from "@backend/data"
+import { STAGES } from "@backend/data"
+import { getChannelsByOwner } from "@backend/queries/channels"
+import { getReelsByOwner } from "@backend/queries/reels"
+import { requireUserId } from "@backend/auth/session"
 import { ArrowUpRight, ArrowRight, Cpu, Mic, Wand2, Camera, Calendar, BarChart3 } from "lucide-react"
 
 function Stat({
@@ -25,7 +28,11 @@ function Stat({
   )
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const userId = await requireUserId();
+  const CHANNELS = await getChannelsByOwner(userId);
+  const REELS = await getReelsByOwner(userId);
+
   const livePosts = REELS.filter((r) => r.stage === "posted").length
   const inFlight = REELS.filter(
     (r) => !["posted", "analyzed"].includes(r.stage),

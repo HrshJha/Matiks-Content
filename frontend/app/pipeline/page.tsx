@@ -1,8 +1,19 @@
 import { AppShell } from "@/components/app-shell"
-import { CHANNELS, REELS, STAGES, getChannel } from "@backend/data"
+import { STAGES } from "@backend/data"
+import { getChannelsByOwner } from "@backend/queries/channels"
+import { getReelsByOwner } from "@backend/queries/reels"
+import { requireUserId } from "@backend/auth/session"
 import { AlertCircle } from "lucide-react"
 
-export default function PipelinePage() {
+export default async function PipelinePage() {
+  const userId = await requireUserId()
+  const CHANNELS = await getChannelsByOwner(userId)
+  const REELS = await getReelsByOwner(userId)
+
+  function getChannel(id: string) {
+    return CHANNELS.find((c) => c.id === id)
+  }
+
   return (
     <AppShell active="/pipeline">
       <section className="px-6 sm:px-10 py-10 border-b border-border">

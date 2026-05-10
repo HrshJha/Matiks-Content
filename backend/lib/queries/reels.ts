@@ -3,32 +3,44 @@ import { createReelSchema, updateReelStageSchema, isValidStageTransition } from 
 import { z } from "zod";
 
 export async function getReelsByChannel(channelId: string) {
-  const supabase = createServiceSupabaseClient();
-  
-  const { data, error } = await supabase
-    .from("reels")
-    .select("*")
-    .eq("channel_id", channelId)
-    .order("created_at", { ascending: false });
+  try {
+    const supabase = createServiceSupabaseClient();
+    
+    const { data, error } = await supabase
+      .from("reels")
+      .select("*")
+      .eq("channel_id", channelId)
+      .order("created_at", { ascending: false });
 
-  if (error) throw error;
-  return data;
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.warn("⚠️ Supabase not configured or query failed, returning mock reels.");
+    const { REELS } = await import("../data");
+    return REELS.filter(r => r.channelId === channelId);
+  }
 }
 
 export async function getReelsByOwner(ownerId: string) {
-  const supabase = createServiceSupabaseClient();
-  
-  const { data, error } = await supabase
-    .from("reels")
-    .select(`
-      *,
-      channel:channels(handle, niche)
-    `)
-    .eq("channels.owner_id", ownerId)
-    .order("created_at", { ascending: false });
+  try {
+    const supabase = createServiceSupabaseClient();
+    
+    const { data, error } = await supabase
+      .from("reels")
+      .select(`
+        *,
+        channel:channels(handle, niche)
+      `)
+      .eq("channels.owner_id", ownerId)
+      .order("created_at", { ascending: false });
 
-  if (error) throw error;
-  return data;
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.warn("⚠️ Supabase not configured or query failed, returning all mock reels.");
+    const { REELS } = await import("../data");
+    return REELS;
+  }
 }
 
 export async function getReelsByStage(stage: string, ownerId: string) {

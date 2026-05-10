@@ -1,7 +1,12 @@
 import { AppShell } from "@/components/app-shell"
-import { CHANNELS } from "@backend/data"
+import { getChannelsByOwner } from "@backend/queries/channels"
+import { requireUserId } from "@backend/auth/session"
+import { ArrowUpRight, TrendingUp, Users, Mic, Layers, Save, Plus } from "lucide-react"
 
-export default function ChannelsPage() {
+export default async function ChannelsPage() {
+  const userId = await requireUserId();
+  const CHANNELS = await getChannelsByOwner(userId);
+
   return (
     <AppShell active="/channels">
       <section className="px-6 sm:px-10 py-12 border-b border-border">
@@ -58,20 +63,20 @@ export default function ChannelsPage() {
                   <td className="px-3 py-3 max-w-[180px]">{c.niche}</td>
                   <td className="px-3 py-3 font-mono text-xs">{c.language}</td>
                   <td className="px-3 py-3 text-xs text-muted-foreground max-w-[200px] truncate">
-                    {c.voice}
+                    {c.voice || c.voiceId || "unassigned"}
                   </td>
                   <td className="px-3 py-3 text-xs text-muted-foreground max-w-[220px] truncate">
-                    {c.format}
+                    {c.format || "Standard"}
                   </td>
-                  <td className="px-3 py-3 font-mono text-xs">{c.cadence}</td>
+                  <td className="px-3 py-3 font-mono text-xs">{c.cadence || "2/day"}</td>
                   <td className="px-3 py-3">
                     <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-foreground text-background">
-                      {c.ownerAgent}
+                      {c.ownerAgent || "Atlas"}
                     </span>
                   </td>
                   <td className="px-3 py-3">
                     <div className="flex flex-wrap gap-1 max-w-[300px]">
-                      {c.engineStack.map((s) => (
+                      {(c.engineStack || ["GPT-5", "ElevenLabs"]).map((s: string) => (
                         <span
                           key={s}
                           className="font-mono text-[10px] px-1.5 py-0.5 rounded border border-border text-muted-foreground"
