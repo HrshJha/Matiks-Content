@@ -15,8 +15,9 @@ export async function getChannelsByOwner(ownerId: string) {
     if (error) throw error;
     return data;
   } catch (error) {
-    // Graceful fallback for local dev / unconfigured DB
-    console.warn("⚠️ Supabase not configured or query failed, returning mock channels.");
+    // Detailed error logging for debugging
+    console.error("❌ Supabase query failed:", error);
+    console.warn("⚠️ Falling back to mock channels.");
     const { CHANNELS } = await import("../data");
     return CHANNELS;
   }
