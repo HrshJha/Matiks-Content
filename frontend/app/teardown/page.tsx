@@ -310,7 +310,7 @@ export default function TeardownPage() {
               <div className="pl-8 break-all sm:break-normal">status <span className="text-[#c678dd]">IN</span> (<span className="text-[#98c379]">'ideation'</span>, <span className="text-[#98c379]">'scripting'</span>, <span className="text-[#98c379]">'asset_gen'</span>, <span className="text-[#98c379]">'qa'</span>, <span className="text-[#98c379]">'scheduled'</span>, <span className="text-[#98c379]">'failed'</span>)</div>
               <div className="pl-4">),</div>
               
-              <div className="pl-4 mt-2"><span className="text-[#5c6370] italic">-- Operational state</span></div>
+              <div className="pl-4 mt-2"><span className="text-[#5c6370] italic">-- Core operational state</span></div>
               <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">retry_count</span> <span className="text-[#d19a66]">int</span> <span className="text-[#c678dd]">DEFAULT</span> 0,</div>
               <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">error_log</span> <span className="text-[#d19a66]">text</span>,</div>
               <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">provider_used</span> <span className="text-[#d19a66]">text</span>,</div>
