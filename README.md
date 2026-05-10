@@ -9,9 +9,9 @@
 <br/>
 
 <p align="center">
-  <img src="https://img.shields.io/github/stars/YOUR_USERNAME/YOUR_REPO?style=for-the-badge&color=8b5cf6&logo=github" />
-  <img src="https://img.shields.io/github/forks/YOUR_USERNAME/YOUR_REPO?style=for-the-badge&color=7c3aed&logo=git" />
-  <img src="https://img.shields.io/github/license/YOUR_USERNAME/YOUR_REPO?style=for-the-badge&color=9333ea" />
+  <img src="https://img.shields.io/github/stars/HrshJha/Matiks-Content?style=for-the-badge&color=8b5cf6&logo=github" />
+  <img src="https://img.shields.io/github/forks/HrshJha/Matiks-Content?style=for-the-badge&color=7c3aed&logo=git" />
+  <img src="https://img.shields.io/github/license/HrshJha/Matiks-Content?style=for-the-badge&color=9333ea" />
   <img src="https://img.shields.io/badge/BUILD-STABLE-22c55e?style=for-the-badge&logo=vercel" />
   <img src="https://img.shields.io/badge/AI%20POWERED-GPT--5-black?style=for-the-badge&logo=openai" />
 </p>
