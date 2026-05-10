@@ -4,14 +4,13 @@ import { useEffect, useState } from "react"
 import { Sun, Moon } from "lucide-react"
 
 export function ThemeToggle() {
-  const [dark, setDark] = useState(true)
+  // null = not yet mounted (avoids SSR/hydration mismatch)
+  const [dark, setDark] = useState<boolean | null>(null)
 
-  // On mount, read saved preference or default to dark
   useEffect(() => {
-    const saved = localStorage.getItem("matiks-theme")
-    const isDark = saved ? saved === "dark" : true
+    // Read the actual class state that was set by the inline script in layout.tsx
+    const isDark = document.documentElement.classList.contains("dark")
     setDark(isDark)
-    document.documentElement.classList.toggle("dark", isDark)
   }, [])
 
   function toggle() {
@@ -21,10 +20,13 @@ export function ThemeToggle() {
     localStorage.setItem("matiks-theme", next ? "dark" : "light")
   }
 
+  // Don't render until mounted to avoid hydration mismatch
+  if (dark === null) return null
+
   return (
     <button
       onClick={toggle}
-      aria-label="Toggle theme"
+      aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
       className="flex items-center gap-1.5 px-2 py-1 rounded border border-border bg-card text-muted-foreground hover:text-foreground hover:border-accent transition-colors"
     >
       {dark ? (

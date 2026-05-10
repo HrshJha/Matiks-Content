@@ -289,7 +289,7 @@ export default async function HomePage() {
           <div>
             <p>matiks · content-os · prototype</p>
             <p className="mt-1">
-              built with next.js 16 · ai sdk 6 · vercel ai gateway · openai gpt-5-mini
+              built with next.js 16 · vercel ai sdk · @ai-sdk/google · gemini-2.5-flash
             </p>
           </div>
           <p className="max-w-md text-right">
