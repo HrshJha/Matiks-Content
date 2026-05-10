@@ -12,7 +12,7 @@ import {
   Plus,
 } from "lucide-react";
 
-// Simulated config state for each channel
+// Simulated config state for each channel mapping
 const CHANNEL_CONFIG = CHANNELS.map((c) => ({
   ...c,
   voiceId: c.voice.includes("custom")
