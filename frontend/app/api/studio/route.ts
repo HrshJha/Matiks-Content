@@ -1,4 +1,4 @@
-// Live AI generation endpoint for Matiks Content OS · /studio
+// Live AI generation endpoint for Frame OS · /studio
 // Streams a structured "reel brief" — the unit the rest of the pipeline consumes.
 import { streamText, Output } from "ai"
 import * as z from "zod"
@@ -79,7 +79,7 @@ export async function POST(req: Request) {
   const channelHandle: string = body.channelHandle || "ai.money.engine"
   const language: string = body.language || "EN"
 
-  const system = `You are the scripting service inside Matiks Content OS — a system that runs 10+ Instagram Reels channels with 2+ reels/day each. You output structured reel briefs that the rest of the pipeline (voiceover, asset gen, caption, scheduler) consumes directly.
+  const system = `You are the scripting service inside Frame OS — an autonomous media infrastructure layer that runs 10+ Instagram Reels channels at 2+ reels/day each. You output structured reel briefs that the rest of the pipeline (voiceover, asset gen, caption, scheduler) consumes directly.
 
 Style rules:
 - Sound like a human who actually posts on Reels in 2026. Avoid LinkedIn-isms ("game-changer", "unlock", "leverage").

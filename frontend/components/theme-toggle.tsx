@@ -17,7 +17,7 @@ export function ThemeToggle() {
     const next = !dark
     setDark(next)
     document.documentElement.classList.toggle("dark", next)
-    localStorage.setItem("matiks-theme", next ? "dark" : "light")
+    localStorage.setItem("frame-theme", next ? "dark" : "light")
   }
 
   // Don't render until mounted to avoid hydration mismatch

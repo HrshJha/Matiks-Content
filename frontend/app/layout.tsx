@@ -18,9 +18,9 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  title: "Matiks Content OS — Operator Command Center",
+  title: "Frame OS — Operator Command Center",
   description:
-    "An AI-first content engine for running 10+ Instagram channels with 2+ reels/day each. Built as a hiring assignment for Matiks.",
+    "Autonomous AI media infrastructure. Twelve channels. Continuous throughput. Zero overhead.",
   generator: "v0.app",
 }
 
@@ -42,7 +42,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('matiks-theme');document.documentElement.classList.toggle('dark',t!=='light')}catch(e){document.documentElement.classList.add('dark')}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('frame-theme');document.documentElement.classList.toggle('dark',t!=='light')}catch(e){document.documentElement.classList.add('dark')}})();`,
           }}
         />
       </head>

@@ -55,8 +55,9 @@ export default async function HomePage() {
             Twenty-six reels a day. Zero burnout.
           </h1>
           <p className="mt-5 max-w-2xl text-base text-muted-foreground leading-relaxed">
-            Matiks Content OS is the workflow we&apos;d run if we were hiring{" "}
-            <em>ourselves</em> for this role. It treats AI short-form like a
+            Frame OS is the infrastructure layer we'd build if we were
+            running this role{" "}
+            <em>ourselves</em>. It treats AI short-form like a
             distributed system: ideation, research, scripting, generation,
             QA, posting, and feedback are services — not chores. Operators
             review exceptions; the pipeline runs itself.
@@ -287,15 +288,15 @@ export default async function HomePage() {
       <footer className="px-6 sm:px-10 py-10 text-xs text-muted-foreground font-mono">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p>matiks · content-os · prototype</p>
+            <p>frame · autonomous media infrastructure</p>
             <p className="mt-1">
               built with next.js 16 · vercel ai sdk · @ai-sdk/google · gemini-2.5-flash
             </p>
           </div>
           <p className="max-w-md text-right">
-            this is the prototype submitted for the Matiks operator hiring
-            assignment. ↗ part 1 lives at <span className="text-foreground">/teardown</span>.
-            part 2 lives in <span className="text-foreground">/studio</span> — and runs.
+            a working prototype of the operator system.
+            teardown at <span className="text-foreground">/teardown</span>.
+            live AI studio at <span className="text-foreground">/studio</span>.
           </p>
         </div>
       </footer>

@@ -44,7 +44,7 @@ export default function SignInPage() {
           <div className="size-12 rounded-sm bg-foreground text-background grid place-items-center mx-auto mb-4">
             <span className="font-mono text-sm tracking-tight">M</span>
           </div>
-          <h1 className="font-serif text-3xl">Sign in to Matiks</h1>
+          <h1 className="font-serif text-3xl">Sign in to Frame</h1>
           <p className="mt-2 text-muted-foreground">
             Magic link authentication via Supabase
           </p>

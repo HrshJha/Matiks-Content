@@ -43,13 +43,13 @@ export function AppShell({
               <span className="font-mono text-[10px] tracking-tight">M</span>
             </div>
             <span className="font-serif text-lg leading-none">
-              Matiks <span className="text-muted-foreground">Content OS</span>
+              Frame <span className="text-muted-foreground">OS</span>
             </span>
           </Link>
 
           <span className="hidden md:inline text-muted-foreground/60">/</span>
           <span className="hidden md:inline font-mono text-xs text-muted-foreground">
-            org_matiks · operator: harsh@ · v0.7.3
+            org.frame · operator: harsh@ · v0.7.3
           </span>
 
           <div className="ml-auto flex items-center gap-2">
@@ -154,7 +154,8 @@ export function AppShell({
 
           <div className="m-3 p-3 rounded border border-border bg-card">
             <p className="font-serif text-base leading-tight">
-              Built as a hiring assignment for Matiks.
+              Autonomous media infrastructure.
+              Twelve channels. Zero overhead.
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
               One operator · 12 channels · 26 reels/day.
