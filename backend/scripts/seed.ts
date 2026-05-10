@@ -76,8 +76,8 @@ async function main() {
       console.log("✅ Seeded reel " + reel.id + " (" + reel.stage + ")");
     }
 
-    // 3. Seed Metrics for posted reels
-    if (reel.stage === "posted" && reel.views) {
+    // 3. Seed Metrics for posted (analyzed) reels
+    if (reel.stage === "analyzed" && reel.views) {
       const channel = CHANNELS.find(c => c.id === reel.channelId);
       const { error: metricError } = await supabase
         .from("metrics")

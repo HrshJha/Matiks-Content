@@ -280,7 +280,7 @@ export const REELS: Reel[] = [
 
   // Analyzed
   { id: "00000000-0000-0000-0000-000000000261", channelId: "00000000-0000-0000-0000-000000000003", hook: "Jensen Huang: 'we should have hired the third-best person'", stage: "analyzed", niche: "interviews", views: 412_000, saveRate: 5.1 },
-  { id: "00000000-0000-0000-0000-000000000262", channelId: "00000000-0000-0000-0000-000000000012", hook: "The Bugatti you can legally drive in India for ₹0 in tax", stage: "posted", niche: "cars", views: 1_240_000, saveRate: 3.8 },
+  { id: "00000000-0000-0000-0000-000000000262", channelId: "00000000-0000-0000-0000-000000000012", hook: "The Bugatti you can legally drive in India for ₹0 in tax", stage: "analyzed", niche: "cars", views: 1_240_000, saveRate: 3.8 },
   { id: "00000000-0000-0000-0000-000000000263", channelId: "00000000-0000-0000-0000-000000000001", hook: "I let AI decide my groceries for 30 days", stage: "analyzed", niche: "finance", views: 312_000, saveRate: 7.2 },
 
   // Analyzed
