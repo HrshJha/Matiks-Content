@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
       posted_at,
       channel:channels(ig_user_id, access_token_enc)
     `)
-    .in("stage", ["posted", "analyzed"])
+    .in("stage", ["analyzed"])
     .not("ig_media_id", "is", null)
     .gte("posted_at", sevenDaysAgo.toISOString())
     .limit(50);
