@@ -90,6 +90,11 @@ export default function SignInPage() {
                 </div>
               )}
 
+              <button
+                type="submit"
+                disabled={loading || !email}
+                className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-foreground text-background px-4 py-2.5 text-sm font-medium hover:bg-foreground/90 disabled:opacity-50"
+              >
                 {loading ? (
                   <>
                     <Loader2 className="size-4 animate-spin" />
