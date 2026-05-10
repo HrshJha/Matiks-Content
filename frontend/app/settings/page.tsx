@@ -284,43 +284,7 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* Env vars reference */}
-        <div className="mt-6 rounded-md border border-border bg-card overflow-hidden">
-          <div className="px-4 py-3 border-b border-border flex items-center justify-between">
-            <p className="font-mono text-xs text-muted-foreground">
-              .env.example
-            </p>
-            <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-              required environment variables
-            </p>
-          </div>
-          <pre className="px-4 py-4 font-mono text-xs leading-relaxed overflow-x-auto text-muted-foreground">
-{`# Supabase
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 
-# AI Gateway
-AI_GATEWAY_API_KEY=...
-
-# Providers
-ELEVENLABS_API_KEY=your-elevenlabs-key
-CREATOMATE_API_KEY=your-creatomate-key
-IG_APP_ID=your-instagram-app-id
-IG_APP_SECRET=your-instagram-app-secret
-
-# Encryption (generate: openssl rand -base64 32)
-ENCRYPTION_KEY=your-32-byte-base64-key
-
-# Queue & Cron
-UPSTASH_REDIS_REST_URL=https://your-upstash.redis.com
-UPSTASH_REDIS_REST_TOKEN=your-upstash-token
-QSTASH_TOKEN=your-qstash-token
-
-# Internal auth
-STUDIO_SECRET=your-random-secret-string`}
-          </pre>
-        </div>
       </section>
     </AppShell>
   );
