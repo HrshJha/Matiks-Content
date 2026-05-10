@@ -65,7 +65,7 @@ function Bottleneck({
         <Wrench className="size-3.5 text-foreground mt-0.5 shrink-0" />
         <p className="text-sm">
           <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mr-1">
-            How we&apos;d fix it:
+            How I'd fix it:
           </span>
           {fix}
         </p>
@@ -82,26 +82,23 @@ export default function TeardownPage() {
           Part 1 · Reverse-engineering
         </p>
         <h1 className="mt-3 font-serif text-5xl leading-[1.05] tracking-tight text-balance">
-          What&apos;s actually under the hood of a viral AI content machine.
+          What's actually under the hood of a viral content factory.
         </h1>
         <p className="mt-5 text-base text-muted-foreground leading-relaxed max-w-3xl">
-          Two case studies. We bypass the &ldquo;they post good content!&rdquo;
-          surface read and treat each operation as an engineering system —
-          inputs, services, queues, model choices, rate limits, and the
-          humans who only touch exceptions.
+          I spent some time looking at how modern AI-native pages operate. Most people think they just "post good content," but that's the wrong framing. These aren't content creators. They're automated workflow systems. I broke down two common archetypes to figure out how they route inputs, pick models, handle rate limits, and where humans actually fit into the loop.
         </p>
 
         {/* TOC */}
         <nav className="mt-10 flex flex-wrap gap-2 text-sm">
           {[
-            ["A", "Faceless AI page · @aimoneyhacks"],
-            ["B", "AI-UGC brand · Lyma / Arcads-style DTC"],
-            ["C", "How we recreate + scale internally"],
+            ["A", "Faceless page architecture"],
+            ["B", "AI-UGC DTC brands"],
+            ["C", "How to build this natively"],
           ].map(([n, t]) => (
             <a
               key={n}
               href={`#case-${n}`}
-              className="px-3 py-1.5 rounded-full border border-border bg-card hover:bg-card/60"
+              className="px-3 py-1.5 rounded-full border border-border bg-card hover:bg-card/60 transition-colors"
             >
               <span className="font-mono text-[10px] text-muted-foreground mr-2">
                 {n}
@@ -114,105 +111,93 @@ export default function TeardownPage() {
         {/* CASE A */}
         <section id="case-A" className="mt-16">
           <H2 num="Case A">
-            Faceless AI page · the &ldquo;ai money hacks&rdquo; archetype
+            Faceless AI pages (the finance/tech bro archetype)
           </H2>
           <p className="mt-3 text-muted-foreground max-w-3xl leading-relaxed">
-            The dominant template on Reels in 2026: a faceless personal-finance /
-            AI-tools page posting 2–3× a day, ~700K followers, near-identical
-            visual grammar — bold sans-serif captions burned in, a generic
-            stock or AI b-roll background, an ElevenLabs male voice with the
-            same cadence, and a 7-second hook formatted as either{" "}
-            <em>&ldquo;X most people don&apos;t know&hellip;&rdquo;</em> or{" "}
-            <em>&ldquo;Stop doing X. Do Y instead.&rdquo;</em>
+            You've probably seen these everywhere. It's the standard template on Reels right now: a personal finance or AI-tools page posting 2 or 3 times a day. They all share the same visual language. Bold, burned-in captions. Stock or generic AI b-roll in the background. An AI male voiceover with a very specific cadence. And they always use a 7-second hook that looks like "X things you didn't know" or "Stop doing X right now." It's highly predictable, which means it's highly programmable.
           </p>
 
           <div className="mt-8 rounded-md border border-border bg-card overflow-hidden">
             <div className="px-4 py-3 border-b border-border flex items-center justify-between">
               <p className="font-mono text-xs text-muted-foreground">
-                Inferred end-to-end workflow
+                Inferred workflow
               </p>
               <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                ideation → posted
+                pipeline
               </p>
             </div>
             <div className="px-4">
               <StepRow
-                step="01 · INGEST"
-                title="Trend & topic mining"
-                detail="Daily scrape of 200–400 high-RPM finance / AI Reels (Apify or Phantombuster), Reddit r/personalfinance + r/sidehustle hot posts, and Google Trends Rising. Captions, hooks, hashtags, watch-thru proxies (likes:views ratio) are dumped into a Postgres / Airtable trends table."
-                tools={["Apify", "Phantombuster", "Reddit API", "Google Trends", "Postgres"]}
+                step="Ingest"
+                title="Mining for topics"
+                detail="They likely scrape a few hundred high-performing finance or tech reels daily. Add in some top posts from Reddit and Google Trends. They probably dump all the hooks, captions, and proxy metrics (like view-to-like ratios) into a database to figure out what's hitting right now."
+                tools={["Scraping cluster", "Postgres"]}
               />
               <StepRow
-                step="02 · SELECT"
-                title="Hook clustering & idea picking"
-                detail="An LLM groups scraped hooks into ~15 reusable templates (e.g. 'shock-stat', 'invisible-cost', 'tool-stack-reveal') and ranks today's topics by template × topic novelty. Output: 6–10 idea cards, each with a topic + a hook template assignment."
-                tools={["GPT-5", "OpenAI embeddings", "pgvector"]}
+                step="Select"
+                title="Hook clustering"
+                detail="Based on the output patterns, an LLM groups the scraped hooks into a few reusable templates (like 'shocking-stat' or 'hidden-cost'). It ranks today's topics by novelty and matches them to a hook template. The result is a batch of idea cards ready for production."
+                tools={["LLM router", "Vector DB"]}
               />
               <StepRow
-                step="03 · SCRIPT"
-                title="60-second script with structural slots"
-                detail="Strict schema: HOOK (≤7s, contrarian), CONTEXT (≤8s), 3 BEATS (≤30s total), CTA (≤5s, save/follow). Each beat carries a B-roll prompt for the asset stage. Tone-locked to a per-channel voice card."
-                tools={["GPT-5", "Claude Opus 4.6", "Output.object()"]}
+                step="Script"
+                title="Writing with strict constraints"
+                detail="The script generation seems highly constrained. Hook under 7 seconds. Context under 8 seconds. A few beats of value, then a quick call to action. They probably force the LLM to output JSON so the downstream systems can parse the beats easily."
+                tools={["LLM (Writer)", "Structured output"]}
               />
               <StepRow
-                step="04 · VOICE"
-                title="ElevenLabs voiceover with locked voice ID"
-                detail="One voice ID per channel. SSML breaks tuned to the script's slot timing. Output: a single .mp3 + per-line timecodes used downstream by the captioner."
-                tools={["ElevenLabs v3", "ssml"]}
+                step="Voice"
+                title="TTS generation"
+                detail="Almost certainly ElevenLabs or a similar high-quality TTS. They lock in one specific voice ID per channel for consistency. The system generates the audio and probably extracts the timecodes for the captioner later."
+                tools={["TTS API"]}
               />
               <StepRow
-                step="05 · ASSETS"
-                title="B-roll: stock + Veo 3 fallback"
-                detail="Each beat's prompt is matched against a Pexels / Storyblocks library first (fast, free). Misses fall back to a Veo 3 (or Runway) generation queue. Faceless pages keep heavy generative use to a minimum because watch-time cratered when AI b-roll was over-used."
-                tools={["Pexels API", "Storyblocks", "Veo 3", "Runway Gen-4"]}
+                step="Assets"
+                title="B-roll fetching"
+                detail="For background visuals, they probably hit a stock API first because it's cheap and fast. If that fails, it falls back to an AI video generator. Most faceless pages seem to overuse AI b-roll, which probably hurts retention after a while. It gets uncanny."
+                tools={["Stock API", "Video Gen API"]}
               />
               <StepRow
-                step="06 · ASSEMBLE"
-                title="Auto-edit + burned-in captions"
-                detail="Submagic or Captions.ai composes the timeline: voice waveform → beat-cuts → captions auto-styled to the page's burned-in look (Inter Black, 88px, off-white on black stroke). ~90% of reels finish here without a human touching them."
-                tools={["Submagic", "Captions.ai", "Creatomate"]}
+                step="Assemble"
+                title="Putting it together"
+                detail="A programmatic video editor stitches the timeline: audio track, video clips, and burned-in captions. The styling is usually hardcoded. My guess is 90% of these videos render and queue up without anyone ever looking at them."
+                tools={["Auto-editor"]}
               />
               <StepRow
-                step="07 · QA"
-                title="Operator approves only the 8% flagged"
-                detail="A QA scorer (LLM + heuristic) flags reels with: lip-sync drift, factual claim density too high, profanity, brand-safety risks. Everything else auto-promotes to Scheduled."
-                tools={["GPT-5 (judge)", "OpenCV (lipsync)", "PerspectiveAPI"]}
+                step="QA"
+                title="The human exception loop"
+                detail="Operators likely only step in when something breaks. Maybe an automated judge flags a video for weird lip-sync, or the claim density is too high, or it hits a brand-safety filter. Everything else goes straight to the schedule."
+                tools={["LLM (Judge)", "Safety filters"]}
               />
               <StepRow
-                step="08 · POST"
-                title="Native posting via Graph API + 2 backups"
-                detail="Primary: Instagram Graph API (Reel container + publish). Backup queue: Buffer / Postiz / Blotato in case of token rotation. Post times follow a per-channel reach-curve (12 PM IST + 7 PM IST is typical)."
-                tools={["Instagram Graph API", "Postiz", "Blotato", "Buffer"]}
-              />
-              <StepRow
-                step="09 · ANALYTICS"
-                title="24h cohort analysis → next day's idea pool"
-                detail="A cron job (Vercel Cron / n8n) pulls insights/{reel-id} after 24h, writes to a posts_metrics table. A feedback bot promotes high-performing hooks back into the idea queue with structural variants — closing the loop."
-                tools={["IG Insights API", "n8n", "cron", "Postgres"]}
+                step="Post"
+                title="Publishing and feedback"
+                detail="They post via official APIs or fallback schedulers. After a day, a cron job pulls the metrics. The best performing hooks get fed back into the idea pool for the next day, closing the loop automatically."
+                tools={["Social APIs", "Cron"]}
               />
             </div>
           </div>
 
           <div className="mt-8 grid sm:grid-cols-2 gap-3">
             <Bottleneck
-              title="Voice / model fatigue"
-              detail="Same ElevenLabs voice + same hook templates → audience saturation. Watch-thru on hook 3 starts dropping after ~12 weeks."
-              fix="Rotate 3 voice IDs per channel on a stratified schedule; ban any hook template > 18% of last 30 reels."
+              title="Audience saturation"
+              detail="Hearing the exact same AI voice read the exact same hook templates gets old fast. Engagement probably drops off a cliff after a few months."
+              fix="Rotate a few different voice profiles per channel. Add logic to prevent the same hook template from being used too often in a given week."
             />
             <Bottleneck
-              title="Cinematic over-reliance"
-              detail="When pages over-use Veo / Runway for every beat, reels feel uncanny — saves drop even when views hold."
-              fix="Hard-cap generative b-roll at 30% of beats; default to stock matched by CLIP-embedding distance."
+              title="Generative video fatigue"
+              detail="Relying too heavily on AI-generated b-roll makes the page feel cheap. Saves and shares usually drop even if initial views look okay."
+              fix="Cap AI video generation to maybe a third of the video. Rely more on high-quality stock footage matched via semantic search."
             />
             <Bottleneck
-              title="Single-account risk"
-              detail="One Instagram block kills the entire stack (token, posting, insights). Lots of these pages run on a single Meta business asset."
-              fix="Per-channel Meta business account, isolated tokens, 2 backup posters (Postiz + manual fallback)."
+              title="Platform dependency"
+              detail="If Instagram flags the account, the whole pipeline dies. A lot of these setups seem to run on a single API token."
+              fix="Isolate API tokens per channel. Have fallback posting methods ready if the primary API acts up."
             />
             <Bottleneck
-              title="Idea pool collapse"
-              detail="Trend scraping converges → every faceless page posts the same hooks the same week."
-              fix="Add an 'orthogonal source' branch: niche newsletters, books, court records, podcast archives — sources LLMs aren&apos;t already saturating."
+              title="Echo chamber effect"
+              detail="Because everyone is scraping the same viral videos, the content pool gets stale. They all end up making the exact same videos."
+              fix="Pull from orthogonal sources. Ingest niche newsletters, podcasts, or old books—stuff that isn't already optimized for social."
             />
           </div>
         </section>
@@ -224,98 +209,81 @@ export default function TeardownPage() {
         {/* CASE B */}
         <section id="case-B">
           <H2 num="Case B">
-            AI-UGC brand · the &ldquo;Lyma / Arcads-style&rdquo; archetype
+            AI-UGC brands (the performance marketing archetype)
           </H2>
           <p className="mt-3 text-muted-foreground max-w-3xl leading-relaxed">
-            A DTC brand (think a wellness, supplement, or skincare label —
-            Lyma, Bloom Nutrition, Magic Mind, Vessi shoes are public examples)
-            scaling{" "}
-            <em>thousands of ad creatives a month</em> using AI UGC actors
-            instead of paying real creators per asset. Same brand voice, 50+
-            &ldquo;testimonials&rdquo; a week, A/B/n tested at the platform level.
+            This is what modern DTC brands are doing. Instead of paying creators for hundreds of variations of an ad, they use AI actors. It looks like a real person reviewing a supplement or a skincare product, but it's completely synthetic. They can spin up thousands of variations of a brief and test them all programmatically.
           </p>
 
           <div className="mt-8 rounded-md border border-border bg-card overflow-hidden">
             <div className="px-4 py-3 border-b border-border flex items-center justify-between">
               <p className="font-mono text-xs text-muted-foreground">
-                Inferred end-to-end workflow
+                Inferred workflow
               </p>
               <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                brief → spend
+                pipeline
               </p>
             </div>
             <div className="px-4">
               <StepRow
-                step="01 · BRIEF"
-                title="Performance team drops a creative brief"
-                detail="One brief = product, audience segment, pain point, claim, offer. Performance brief lives in Notion / Linear; an automation watches the 'ready-for-creative' status."
-                tools={["Notion API", "Linear", "n8n"]}
+                step="Brief"
+                title="The initial spec"
+                detail="It starts with a human performance marketer dropping a brief into a tracker. Just the basics: target audience, pain point, the product claim, and the offer. An automation picks it up from there."
+                tools={["Task tracker", "Automation layer"]}
               />
               <StepRow
-                step="02 · ANGLES"
-                title="Angle generator: one brief → 30 angles"
-                detail="GPT-5 expands the brief into 30 angle variants (problem-aware vs. solution-aware × 5 tones × 3 hooks). Each angle is one row in a creatives table — never more than that."
-                tools={["GPT-5", "Output.object()", "Postgres"]}
+                step="Angles"
+                title="Multiplying the idea"
+                detail="An LLM takes that single brief and explodes it into dozens of angle variations. It mixes different hooks, tones, and awareness levels. Suddenly one idea is 30 different database rows."
+                tools={["LLM (Expander)"]}
               />
               <StepRow
-                step="03 · SCRIPT"
-                title="UGC scripts in 60-90s with built-in B-roll cues"
-                detail="Strict schema again: HOOK · BUILD · CLAIM · DEMO · OFFER · CTA. The script is written for an AI actor with explicit emotion + camera notes ('lean-in', 'half-laugh', 'product-up')."
-                tools={["GPT-5", "Claude Opus 4.6"]}
+                step="Script"
+                title="Writing for avatars"
+                detail="The scripts are written specifically for AI actors. They include stage directions like 'look excited' or 'hold up product'. The structure is usually very rigid to optimize for ad conversions."
+                tools={["LLM (Writer)"]}
               />
               <StepRow
-                step="04 · ACTOR"
-                title="Arcads / Creatify generate the actor video"
-                detail="A locked roster of ~12 AI actors (per persona × per market) speaks the script. Arcads is the leader for naturalism; Creatify is used for sheer volume + price; HeyGen for IVR-style explainer angles."
-                tools={["Arcads", "Creatify", "HeyGen", "Topview AI"]}
+                step="Actor"
+                title="Synthesizing the video"
+                detail="They pass the script to an avatar API. They likely have a roster of specific AI models tested for different demographics. The API spits back a video of a 'person' talking to the camera."
+                tools={["Avatar API"]}
               />
               <StepRow
-                step="05 · DEMO"
-                title="Real product B-roll spliced in"
-                detail="The one human-shot asset: 30s of unedited product b-roll filmed quarterly. AI actor video + product b-roll + lower-third caption are auto-assembled."
-                tools={["Creatomate", "Submagic", "After Effects template"]}
+                step="Demo"
+                title="Splicing in reality"
+                detail="This is where the human touch comes back. They usually shoot a batch of real product b-roll once a quarter. The system cuts the AI actor video with the real product footage to make it believable."
+                tools={["Video API"]}
               />
               <StepRow
-                step="06 · CAPTION"
-                title="Burned-in captions matched to brand kit"
-                detail="A locked Submagic style (font, motion, emoji rules) is applied automatically. No designer time per ad."
-                tools={["Submagic", "Captions.ai"]}
-              />
-              <StepRow
-                step="07 · LAUNCH"
-                title="Push to Meta + TikTok ad libraries via API"
-                detail="Each creative is auto-uploaded to a fresh ad set with one of N pre-approved primary texts. Naming convention encodes angle, actor, hook template — so the data team can decompose performance later."
-                tools={["Meta Marketing API", "TikTok Ads API", "Smartly.io"]}
-              />
-              <StepRow
-                step="08 · LEARN"
-                title="Daily creative-performance digest"
-                detail="A cron pulls 24h spend + ROAS + thumbstop, scores by hook template × actor × angle, and writes 'winning patterns' back into the brief generator's preferred-templates pool. The losers are auto-archived."
-                tools={["BigQuery", "Hex", "n8n", "Slack digest"]}
+                step="Learn"
+                title="Testing at scale"
+                detail="The final videos get pushed directly to ad networks. A day later, the system pulls the ROAS and engagement data. Winning angles get fed back into the generator; losers are tossed. It's evolutionary design for ads."
+                tools={["Ad APIs", "Analytics DB"]}
               />
             </div>
           </div>
 
           <div className="mt-8 grid sm:grid-cols-2 gap-3">
             <Bottleneck
-              title="Actor saturation"
-              detail="When the same Arcads actor is in 200 ads, audiences pattern-match and thumbstop falls."
-              fix="Treat actors like a media spend: rotate, cap impressions per actor per market, retire on a fatigue threshold."
+              title="Avatar blindness"
+              detail="When the exact same AI actor shows up in 200 different ads on someone's feed, they scroll past immediately. The illusion breaks."
+              fix="Cycle through a wider roster of actors. Put strict caps on how many impressions a single avatar can get before being rotated out."
             />
             <Bottleneck
-              title="Brand-safety + compliance"
-              detail="A bad health claim from an AI actor is the brand's liability — not the platform's."
-              fix="Hard schema on claim language, an LLM judge plus a regex blocklist; nothing publishes without passing."
+              title="Compliance risks"
+              detail="If an LLM hallucinates a medical claim and the AI actor says it, the brand is still liable. This is a huge risk for supplement brands."
+              fix="Implement a hard schema for claims. Put a secondary LLM judge in place just to check for compliance, backed up by strict regex blocklists."
             />
             <Bottleneck
-              title="Real-product B-roll bottleneck"
-              detail="The one human input — quarterly b-roll — gates everything. New colorways or SKUs starve the pipeline."
-              fix="Spin up a 'B-roll factory' SOP: 1 day per quarter, 200 clips banked, tagged by SKU + lighting + scene."
+              title="The b-roll starvation"
+              detail="The entire system depends on having fresh, real product footage. If they launch a new product, the pipeline halts until someone films it."
+              fix="Build a dedicated SOP for filming b-roll. Spend one day a quarter banking hundreds of generic product shots, nicely tagged and stored."
             />
             <Bottleneck
               title="Ad account bans"
-              detail="High-velocity AI creatives trigger auto-flags on Meta. One ban kills the spend."
-              fix="Multi-asset structure (3+ BMs, identity-aware naming), spend-pacing across them, and a flagging rule that quarantines accounts at 80% risk score."
+              detail="Pushing this much synthetic volume can trigger spam filters on ad networks. Losing an ad account is catastrophic."
+              fix="Distribute the load across multiple business managers. Throttle the upload rate and monitor the account risk scores closely."
             />
           </div>
         </section>
@@ -326,50 +294,45 @@ export default function TeardownPage() {
 
         {/* CASE C - recreation */}
         <section id="case-C">
-          <H2 num="Case C">How we recreate this internally — and scale it</H2>
+          <H2 num="Case C">How to build this natively</H2>
           <p className="mt-3 text-muted-foreground max-w-3xl leading-relaxed">
-            Both archetypes look different, but underneath they&apos;re the
-            same shape: <em>a queue of creative jobs flowing through a fixed
-            pipeline of services, with humans inserted only at exception
-            handling and quarterly inputs</em>. That&apos;s the system Matiks
-            Content OS rebuilds. Below: how we&apos;d recreate it — in the order
-            we&apos;d ship.
+            If you look closely, both of those examples are basically the same machine. It's just a queue of jobs moving through different processing nodes, with humans only stepping in to handle exceptions or provide raw inputs. That's the architecture behind Frame OS. Here is how I'd approach building an autonomous media layer from scratch.
           </p>
 
           <ol className="mt-8 space-y-3">
             {[
               [
-                "Channel = config, not a person.",
-                "Each Instagram channel is a row: niche, voice ID, hook template whitelist, posting times, model stack, owner-agent. Adding a channel = adding a row, not hiring.",
+                "Channels are configuration, not headcount.",
+                "An Instagram account is just a database row. It has a niche, a voice profile, posting rules, and an assigned agent. Scaling up means adding rows, not hiring more social media managers.",
               ],
               [
-                "One queue, eight stages.",
-                "Idea → Research → Script → Asset → QA → Schedule → Post → Analyze. Every reel is an object that walks the queue. Stage workers are pluggable — swap Veo 3 for Sora 2 by changing one provider.",
+                "Treat it like a distributed system.",
+                "There's one central queue with distinct stages: Idea, Research, Script, Asset, QA, Schedule, Post. Every piece of content is an object moving through state transitions. The workers doing the actual processing should be modular. If a better video model comes out tomorrow, you just swap the API call.",
               ],
               [
-                "LLMs do everything except taste.",
-                "Trend mining, clustering, scripting, judging, captioning — all model calls. The operator&apos;s job is to set the taste — voice cards, banned hook templates, brand-safety rules — and audit exceptions.",
+                "LLMs execute. Humans curate.",
+                "Mining trends, scripting, writing captions—let the models handle the execution. The human operator's job is to define the taste. You set the guardrails, tune the prompts, build the blocklists, and let the system run. You only intervene when the QA node flags an anomaly.",
               ],
               [
-                "Run on Postgres + a cron + a queue.",
-                "Don&apos;t over-engineer. Postgres for state, a single queue (Inngest / Trigger.dev / a Vercel Cron + an outbox table), object storage for assets. Everything else is provider calls.",
+                "Keep the stack boring.",
+                "Don't overcomplicate the infrastructure. Postgres for state. A robust queueing system. Object storage for the media files. Keep the logic simple and rely on external APIs for the heavy lifting.",
               ],
               [
-                "Treat hooks as the unit of A/B testing.",
-                "We A/B test the hook template, not the reel. The same script can ship as 3 hook variants to 3 channels of similar audience to find the winning template before scaling.",
+                "Test the structure, not just the output.",
+                "Think of hooks as templates. You aren't just A/B testing a single video; you're testing the underlying structural pattern. When you find a template that works, you can map new topics onto it programmatically.",
               ],
               [
-                "Feedback is a service, not a meeting.",
-                "A daily bot rewrites the next-day idea pool from yesterday&apos;s top quartile. The operator only intervenes when the system gets stuck on a template.",
+                "Automate the feedback loop.",
+                "You shouldn't need a weekly analytics meeting. Build a job that looks at yesterday's top performers and automatically weights those patterns higher in tomorrow's idea generation.",
               ],
               [
-                "Operators run pods, not posts.",
-                "One operator owns 3–4 channels (an &ldquo;owner-agent&rdquo;). Their day is 1.5h: morning audit, midday QA review, evening trend prune. Anything beyond that is a system bug.",
+                "Optimize for operator leverage.",
+                "One person should be able to manage a fleet of channels. Their daily routine should be a quick audit, clearing the QA queue, and pruning trends. If they are spending time on manual data entry, the system is failing.",
               ],
             ].map(([title, detail], i) => (
               <li
                 key={title}
-                className="grid grid-cols-[36px_1fr] gap-3 rounded-md border border-border bg-card p-4"
+                className="grid grid-cols-[36px_1fr] gap-3 rounded-md border border-border bg-card p-4 hover:border-foreground/20 transition-colors"
               >
                 <div className="font-serif text-2xl text-muted-foreground">
                   {String(i + 1).padStart(2, "0")}
@@ -386,19 +349,17 @@ export default function TeardownPage() {
 
           <div className="mt-12 rounded-md border-2 border-foreground bg-card p-6">
             <div className="flex items-center gap-2">
-              <Repeat className="size-4" />
+               <Repeat className="size-4" />
               <p className="font-mono text-[10px] uppercase tracking-widest">
-                Operator capacity model
+                The leverage model
               </p>
             </div>
             <p className="mt-3 font-serif text-2xl leading-tight">
-              1 operator × 4 owner-agents × 3 channels × 2 reels/day = 24
-              reels/day. Tomorrow that becomes 48 by adding agents, not humans.
+              1 operator × 4 agents × 3 channels × 2 reels/day = 24
+              reels/day. Scaling to 48 just means spinning up more agents.
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
-              Cost per reel: $0.62 (model + render + captions, blended).
-              Operator time per reel: ~4 minutes (only on the ~8% that QA
-              flags). Everything else is the system running itself.
+              Blended cost is maybe $0.60 per reel. The operator spends a few minutes clearing flags. The rest of the time, the infrastructure just hums along.
             </p>
           </div>
         </section>
