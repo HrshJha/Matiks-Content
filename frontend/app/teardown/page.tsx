@@ -283,29 +283,31 @@ export default function TeardownPage() {
               <Database className="size-3" />
               <span>public.content_queue</span>
             </div>
-<pre><code>{`CREATE TABLE content_queue (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  channel_id text NOT NULL,
+<pre className="leading-[1.7]"><code className="block">
+<span className="text-[#c678dd]">CREATE TABLE</span> <span className="text-[#61afef]">content_queue</span> (
+  <span className="text-[#e06c75]">id</span> <span className="text-[#d19a66]">uuid</span> <span className="text-[#c678dd]">PRIMARY KEY DEFAULT</span> <span className="text-[#56b6c2]">gen_random_uuid</span>(),
+  <span className="text-[#e06c75]">channel_id</span> <span className="text-[#d19a66]">text</span> <span className="text-[#c678dd]">NOT NULL</span>,
   
-  -- The state machine transitions
-  status text NOT NULL CHECK (
-    status IN ('ideation', 'scripting', 'asset_gen', 'qa', 'scheduled', 'failed')
+  <span className="text-[#5c6370] italic">-- The state machine transitions</span>
+  <span className="text-[#e06c75]">status</span> <span className="text-[#d19a66]">text</span> <span className="text-[#c678dd]">NOT NULL CHECK</span> (
+    status <span className="text-[#c678dd]">IN</span> (<span className="text-[#98c379]">'ideation'</span>, <span className="text-[#98c379]">'scripting'</span>, <span className="text-[#98c379]">'asset_gen'</span>, <span className="text-[#98c379]">'qa'</span>, <span className="text-[#98c379]">'scheduled'</span>, <span className="text-[#98c379]">'failed'</span>)
   ),
   
-  -- Ties back to the winning structural pattern
-  hook_primitive_id text REFERENCES hook_primitives(id), 
+  <span className="text-[#5c6370] italic">-- Ties back to the winning structural pattern</span>
+  <span className="text-[#e06c75]">hook_primitive_id</span> <span className="text-[#d19a66]">text</span> <span className="text-[#c678dd]">REFERENCES</span> <span className="text-[#61afef]">hook_primitives</span>(id), 
   
-  -- The structured beats parsed by the video compiler
-  script_payload jsonb, 
+  <span className="text-[#5c6370] italic">-- The structured beats parsed by the video compiler</span>
+  <span className="text-[#e06c75]">script_payload</span> <span className="text-[#d19a66]">jsonb</span>, 
   
-  -- Artifact pointers
-  render_url text,
+  <span className="text-[#5c6370] italic">-- Artifact pointers</span>
+  <span className="text-[#e06c75]">render_url</span> <span className="text-[#d19a66]">text</span>,
   
-  -- Closed loop feedback
-  metrics_24h jsonb,
+  <span className="text-[#5c6370] italic">-- Closed loop feedback</span>
+  <span className="text-[#e06c75]">metrics_24h</span> <span className="text-[#d19a66]">jsonb</span>,
   
-  created_at timestamptz DEFAULT now()
-);`}</code></pre>
+  <span className="text-[#e06c75]">created_at</span> <span className="text-[#d19a66]">timestamptz</span> <span className="text-[#c678dd]">DEFAULT</span> <span className="text-[#56b6c2]">now</span>()
+);
+</code></pre>
           </div>
 
           <div className="mt-12 space-y-6 max-w-3xl">
