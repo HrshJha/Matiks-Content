@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { CHANNELS, REELS } from "../lib/data";
-import * as dotenv from "doteinnv";
+import * as dotenv from "dotenv";
 import { join } from "path";
 
 // Load environment variables from the frontend directory since that's where .env is usually kept in this monorepo
@@ -63,9 +63,9 @@ async function main() {
         brief_id: null,
         stage: reel.stage,
         topic: reel.hook,
-        scheduled_for: reel.stage === "queued" ? new Date(Date.now() + 86400000).toISOString() : null,
-        posted_at: reel.stage === "posted" ? new Date(Date.now() - 86400000).toISOString() : null,
-        ig_media_id: reel.stage === "posted" ? "demo_ig_media_" + reel.id : null,
+        scheduled_for: (reel.stage as string) === "queued" ? new Date(Date.now() + 86400000).toISOString() : null,
+        posted_at: (reel.stage as string) === "posted" ? new Date(Date.now() - 86400000).toISOString() : null,
+        ig_media_id: (reel.stage as string) === "posted" ? "demo_ig_media_" + reel.id : null,
         updated_at: new Date().toISOString(),
         created_at: new Date(Date.now() - 172800000).toISOString(),
       });
