@@ -13,6 +13,7 @@ import {
 } from "lucide-react"
 import { TICKER } from "@backend/data"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { CommandMenu } from "@/components/command-menu"
 
 const NAV = [
   { href: "/", label: "Overview", icon: LayoutDashboard, mono: "01" },
@@ -52,16 +53,13 @@ export function AppShell({
 
           <div className="ml-auto flex items-center gap-2">
             <ThemeToggle />
-            <div className="hidden sm:flex items-center gap-1.5 px-2 py-1 rounded border border-border bg-card font-mono text-[11px] text-muted-foreground">
-              <CommandIcon className="size-3" />
-              <span>K</span>
-            </div>
-            <div className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-card border border-border">
+            <CommandMenu />
+            <Link href="/channels" className="flex items-center gap-1.5 px-2 py-1 rounded-full bg-card border border-border hover:bg-accent/10 transition-colors">
               <span className="size-1.5 rounded-full bg-accent animate-pulse" aria-hidden />
               <span className="font-mono text-[11px] text-muted-foreground">
                 12 channels live
               </span>
-            </div>
+            </Link>
           </div>
         </div>
 
