@@ -27,6 +27,20 @@ async function main() {
   let successCount = 0;
   let failureCount = 0;
 
+  // 0. Clean up dirty state
+  console.log("\n🧹 Cleaning up existing demo data to prevent conflicts...");
+  const handles = CHANNELS.map(c => c.handle);
+  const { error: cleanupError } = await supabase
+    .from("channels")
+    .delete()
+    .in("handle", handles);
+
+  if (cleanupError) {
+    console.warn("⚠️ Cleanup encountered an issue (can safely ignore if tables are empty):", cleanupError.message);
+  } else {
+    console.log("✅ Cleared old channels (and cascaded to reels/metrics).");
+  }
+
   // 1. Seed Channels
   console.log("\n📦 Seeding Channels (Upserting)...");
   for (const channel of CHANNELS) {
