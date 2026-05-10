@@ -1,5 +1,5 @@
 import { AppShell } from "@/components/app-shell"
-import { ArrowDown, AlertTriangle, Wrench, Repeat, GitCommit, Database } from "lucide-react"
+import { ArrowDown, AlertTriangle, Wrench, Repeat, GitCommit, Database, ArrowRight } from "lucide-react"
 
 function H2({ children, num }: { children: React.ReactNode; num: string }) {
   return (
@@ -273,7 +273,24 @@ export default function TeardownPage() {
             Zoom out, and both of those archetypes are the exact same machine. The queue is the actual product. Content just moves through processing nodes, and humans only exist to handle exceptions. That's the core thesis of Frame OS.
           </p>
 
-          <p className="mt-6 text-foreground font-medium">The Queue State Schema</p>
+          <div className="mt-8 p-6 rounded-md border border-border bg-card/50 overflow-x-auto shadow-sm">
+            <div className="flex items-center min-w-[600px] gap-2 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              <div className="flex-1 p-3 rounded border border-border bg-background text-center shadow-sm">Ideation</div>
+              <ArrowRight className="size-3 shrink-0" />
+              <div className="flex-1 p-3 rounded border border-border bg-background text-center shadow-sm">Scripting</div>
+              <ArrowRight className="size-3 shrink-0" />
+              <div className="flex-1 p-3 rounded border border-border bg-background text-center shadow-sm">Asset Gen</div>
+              <ArrowRight className="size-3 shrink-0" />
+              <div className="flex-1 p-3 rounded border border-amber-500/30 bg-amber-500/5 text-amber-500 text-center shadow-sm">QA / Human</div>
+              <ArrowRight className="size-3 shrink-0" />
+              <div className="flex-1 p-3 rounded border border-border bg-background text-center shadow-sm">Scheduled</div>
+            </div>
+            <div className="mt-5 pt-4 border-t border-border/50 text-xs text-muted-foreground max-w-lg leading-relaxed">
+              * Every transition writes a log to the database. If any node fails, the state machine rolls back and increments <code className="text-foreground">retry_count</code>.
+            </div>
+          </div>
+
+          <p className="mt-12 text-foreground font-medium">The Queue State Schema</p>
           <p className="mt-2 text-sm text-muted-foreground max-w-2xl">
             If I were building this from scratch today, I'd start entirely with the data model. No video rendering, no LLM calls until the state machine is perfectly defined. Here is roughly what the core Supabase table looks like to drive the entire factory:
           </p>
@@ -293,6 +310,13 @@ export default function TeardownPage() {
     status <span className="text-[#c678dd]">IN</span> (<span className="text-[#98c379]">'ideation'</span>, <span className="text-[#98c379]">'scripting'</span>, <span className="text-[#98c379]">'asset_gen'</span>, <span className="text-[#98c379]">'qa'</span>, <span className="text-[#98c379]">'scheduled'</span>, <span className="text-[#98c379]">'failed'</span>)
   ),
   
+  <span className="text-[#5c6370] italic">-- Operational state</span>
+  <span className="text-[#e06c75]">retry_count</span> <span className="text-[#d19a66]">int</span> <span className="text-[#c678dd]">DEFAULT</span> 0,
+  <span className="text-[#e06c75]">error_log</span> <span className="text-[#d19a66]">text</span>,
+  <span className="text-[#e06c75]">provider_used</span> <span className="text-[#d19a66]">text</span>,
+  <span className="text-[#e06c75]">qa_flagged</span> <span className="text-[#d19a66]">boolean</span> <span className="text-[#c678dd]">DEFAULT</span> false,
+  <span className="text-[#e06c75]">scheduled_for</span> <span className="text-[#d19a66]">timestamptz</span>,
+  
   <span className="text-[#5c6370] italic">-- Ties back to the winning structural pattern</span>
   <span className="text-[#e06c75]">hook_primitive_id</span> <span className="text-[#d19a66]">text</span> <span className="text-[#c678dd]">REFERENCES</span> <span className="text-[#61afef]">hook_primitives</span>(id), 
   
@@ -302,12 +326,65 @@ export default function TeardownPage() {
   <span className="text-[#5c6370] italic">-- Artifact pointers</span>
   <span className="text-[#e06c75]">render_url</span> <span className="text-[#d19a66]">text</span>,
   
-  <span className="text-[#5c6370] italic">-- Closed loop feedback</span>
-  <span className="text-[#e06c75]">metrics_24h</span> <span className="text-[#d19a66]">jsonb</span>,
-  
   <span className="text-[#e06c75]">created_at</span> <span className="text-[#d19a66]">timestamptz</span> <span className="text-[#c678dd]">DEFAULT</span> <span className="text-[#56b6c2]">now</span>()
 );
 </code></pre>
+          </div>
+
+          <div className="mt-12 space-y-5 text-base text-muted-foreground max-w-3xl leading-relaxed">
+            <p>
+              Most of this architecture probably just becomes debugging provider inconsistencies and retry logic. Having an LLM write a script is trivial. Handling what happens when the video rendering API silently times out after 14 minutes, locks the queue row, and orphans the state machine is the actual engineering work. Webhook retries and failed state recovery are always more annoying than the generation itself.
+            </p>
+          </div>
+
+          <p className="mt-10 text-foreground font-medium">The Queue Worker (Node.js)</p>
+          <p className="mt-2 text-sm text-muted-foreground max-w-2xl">
+            This is the only thing that actually runs on a cron. A dumb loop that picks up the next stale job, locks the row so we don't double-render, and hands it to the right execution module.
+          </p>
+
+          <div className="mt-5 bg-[#0a0a0a] text-[#d4d4d4] p-5 rounded-md border border-border/40 font-mono text-[13px] overflow-x-auto shadow-sm">
+            <div className="flex items-center gap-2 mb-3 text-muted-foreground/60 pb-2 border-b border-border/20">
+              <span className="text-yellow-400">⚡</span>
+              <span>workers/queue-processor.ts</span>
+            </div>
+<pre className="leading-[1.7]"><code className="block">
+<span className="text-[#c678dd]">async function</span> <span className="text-[#61afef]">processQueue</span>() {'{'}
+  <span className="text-[#5c6370] italic">// 1. Lock the next available job to prevent race conditions</span>
+  <span className="text-[#c678dd]">const</span> job = <span className="text-[#c678dd]">await</span> db.<span className="text-[#61afef]">raw</span>(<span className="text-[#98c379]\`</span>
+    <span className="text-[#98c379]">UPDATE content_queue</span>
+    <span className="text-[#98c379]">SET status = 'processing', updated_at = now()</span>
+    <span className="text-[#98c379]">WHERE id = (</span>
+      <span className="text-[#98c379]">SELECT id FROM content_queue</span>
+      <span className="text-[#98c379]">WHERE status = 'ideation' AND retry_count &lt; 3</span>
+      <span className="text-[#98c379]">ORDER BY created_at ASC</span>
+      <span className="text-[#98c379]">FOR UPDATE SKIP LOCKED</span>
+      <span className="text-[#98c379]">LIMIT 1</span>
+    <span className="text-[#98c379]">) RETURNING *;</span>
+  <span className="text-[#98c379]\`</span>);
+
+  <span className="text-[#c678dd]">if</span> (!job) <span className="text-[#c678dd]">return</span>; <span className="text-[#5c6370] italic">// Queue is empty</span>
+
+  <span className="text-[#c678dd]">try</span> {'{'}
+    <span className="text-[#c678dd]">const</span> payload = <span className="text-[#c678dd]">await</span> <span className="text-[#56b6c2]">generateScript</span>(job.channel_id);
+    
+    <span className="text-[#c678dd]">await</span> db.<span className="text-[#61afef]">update</span>(<span className="text-[#98c379]">'content_queue'</span>, {'{'}
+      status: <span className="text-[#98c379]">'scripting'</span>,
+      script_payload: payload
+    {'}'}).<span className="text-[#61afef]">where</span>(<span className="text-[#98c379]">'id'</span>, job.id);
+    
+  {'}'} <span className="text-[#c678dd]">catch</span> (error) {'{'}
+    <span className="text-[#5c6370] italic">// 2. The reality of API integrations: things break.</span>
+    <span className="text-[#c678dd]">await</span> db.<span className="text-[#61afef]">raw</span>(<span className="text-[#98c379]\`</span>
+      <span className="text-[#98c379]">UPDATE content_queue </span>
+      <span className="text-[#98c379]">SET status = 'failed', </span>
+      <span className="text-[#98c379]">    error_log = ?,</span>
+      <span className="text-[#98c379]">    retry_count = retry_count + 1</span>
+      <span className="text-[#98c379]">WHERE id = ?</span>
+    <span className="text-[#98c379]\`</span>, [error.message, job.id]);
+  {'}'}
+{'}'}
+</code></pre>
+          </div>
           </div>
 
           <div className="mt-12 space-y-6 max-w-3xl">
