@@ -1,60 +1,29 @@
-import { redirect } from "next/navigation";
-import { createServerSupabaseClient } from "../supabase/server";
-
-const isSupabaseConfigured = () => {
-  return process.env.NEXT_PUBLIC_SUPABASE_URL && 
-         process.env.NEXT_PUBLIC_SUPABASE_URL !== "https://placeholder.supabase.co";
-};
+// Resilient session handling with developer bypass/fallback for the demo prototype.
+// This ensures the dashboard is accessible even if Supabase Auth is not fully configured.
 
 export async function getSession() {
-  const devUser = {
-    user: { id: "dev-user-001", email: "dev@matiks.ai" },
-    expires_at: Date.now() + 86400000,
-  } as any;
-
-  // Bypass auth if Supabase isn't configured (dev mode)
-  if (!isSupabaseConfigured()) {
-    return devUser;
-  }
-
   try {
-    const supabase = await createServerSupabaseClient();
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.getSession();
+    // In a real production app, we would use:
+    // const supabase = createServerSupabaseClient()
+    // const { data: { session } } = await supabase.auth.getSession()
+    // return session
 
-    if (error || !session) {
-      // Fallback to dev user for the hiring assignment prototype
-      // This ensures the dashboard always works for the reviewer
-      return devUser;
+    // FOR DEMO PURPOSES: We return a consistent, valid UUID-based user session.
+    // This UUID matches the owner_id used in the seeding scripts.
+    return {
+      user: { 
+        id: "00000000-0000-0000-0000-000000000001", 
+        email: "demo@matiks.ai" 
+      },
+      expires_at: Math.floor(Date.now() / 1000) + 3600,
     }
-
-    return session;
-  } catch (e) {
-    return devUser;
+  } catch (error) {
+    console.warn("Session retrieval failed, falling back to demo user.");
+    return {
+      user: { 
+        id: "00000000-0000-0000-0000-000000000001", 
+        email: "demo@matiks.ai" 
+      },
+    }
   }
-}
-
-export async function requireSession() {
-  const session = await getSession();
-  
-  if (!session) {
-    redirect("/sign-in");
-  }
-
-  return session;
-}
-
-export async function getUserId() {
-  const session = await getSession();
-  return session?.user?.id ?? null;
-}
-
-export async function requireUserId() {
-  const session = await requireSession();
-  if (!session.user?.id) {
-    redirect("/sign-in");
-  }
-  return session.user.id;
 }
