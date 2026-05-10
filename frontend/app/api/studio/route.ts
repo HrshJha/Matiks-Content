@@ -96,8 +96,10 @@ Output language: ${language}
 
 Return only the structured object — no preamble.`
 
+  const { google } = await import("@ai-sdk/google")
+
   const result = streamText({
-    model: "openai/gpt-5-mini",
+    model: google("gemini-2.5-flash"),
     system,
     prompt: `Generate one production-ready reel brief for @${channelHandle} (niche: ${niche}). Format: ${format}. Lean into the angle: ${trend}.`,
     output: Output.object({ schema: reelBriefSchema }),
