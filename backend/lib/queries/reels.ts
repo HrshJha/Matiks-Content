@@ -29,7 +29,7 @@ export async function getReelsByOwner(ownerId: string) {
       .from("reels")
       .select(`
         *,
-        channel:channels(handle, niche)
+        channel:channels!inner(handle, niche, owner_id)
       `)
       .eq("channels.owner_id", ownerId)
       .order("created_at", { ascending: false });
@@ -37,27 +37,33 @@ export async function getReelsByOwner(ownerId: string) {
     if (error) throw error;
     return data;
   } catch (error) {
-    console.warn("⚠️ Supabase not configured or query failed, returning all mock reels.");
+    console.error("❌ getReelsByOwner failed:", error);
+    console.warn("⚠️ Falling back to all mock reels.");
     const { REELS } = await import("../data");
     return REELS;
   }
 }
 
 export async function getReelsByStage(stage: string, ownerId: string) {
-  const supabase = createServiceSupabaseClient();
-  
-  const { data, error } = await supabase
-    .from("reels")
-    .select(`
-      *,
-      channel:channels(handle, niche)
-    `)
-    .eq("stage", stage)
-    .eq("channels.owner_id", ownerId)
-    .order("created_at", { ascending: false });
+  try {
+    const supabase = createServiceSupabaseClient();
+    
+    const { data, error } = await supabase
+      .from("reels")
+      .select(`
+        *,
+        channel:channels!inner(handle, niche, owner_id)
+      `)
+      .eq("stage", stage)
+      .eq("channels.owner_id", ownerId)
+      .order("created_at", { ascending: false });
 
-  if (error) throw error;
-  return data;
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error("❌ getReelsByStage failed:", error);
+    return [];
+  }
 }
 
 export async function getReelById(reelId: string) {
