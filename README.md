@@ -1,175 +1,449 @@
 <div align="center">
 
-![Matiks Banner](https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop)
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0F0F0F,100:6C63FF&height=260&section=header&text=MATIKS%20CONTENT%20OS&fontSize=52&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=The%20Autonomous%20AI-Native%20Content%20Operating%20System&descAlignY=58&descSize=18" width="100%" />
 
-# 🌌 MATIKS CONTENT OS
-### The Autonomous Content Operating System for Knowledge Workflows
+<br/>
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge&logo=github-actions)](https://github.com/matiks/content-os)
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![License](https://img.shields.io/badge/License-Non--Commercial-orange?style=for-the-badge)](./LICENSE.md)
+<img src="https://readme-typing-svg.demolab.com?font=Inter&weight=600&size=24&duration=2500&pause=1000&color=8B5CF6&center=true&vCenter=true&width=1000&lines=AI+Workflow+Infrastructure.;Autonomous+Content+Pipelines.;Multi-Channel+Media+Orchestration.;Built+for+Scale%2C+Speed+and+Leverage." />
 
-**One operator. Twelve channels. Twenty-six reels a day. Zero burnout.**
+<br/>
 
-[Exploration](#-why-this-project-exists) • [Architecture](#-system-architecture) • [Features](#-core-features) • [Setup](#-local-development-setup) • [Roadmap](#-roadmap--future-vision)
+<p align="center">
+  <img src="https://img.shields.io/github/stars/YOUR_USERNAME/YOUR_REPO?style=for-the-badge&color=8b5cf6&logo=github" />
+  <img src="https://img.shields.io/github/forks/YOUR_USERNAME/YOUR_REPO?style=for-the-badge&color=7c3aed&logo=git" />
+  <img src="https://img.shields.io/github/license/YOUR_USERNAME/YOUR_REPO?style=for-the-badge&color=9333ea" />
+  <img src="https://img.shields.io/badge/BUILD-STABLE-22c55e?style=for-the-badge&logo=vercel" />
+  <img src="https://img.shields.io/badge/AI%20POWERED-GPT--5-black?style=for-the-badge&logo=openai" />
+</p>
+
+<br/>
+
+<h3>
+⚡ One Operator. Infinite Scale. Autonomous Media Infrastructure.
+</h3>
+
+<p>
+MATIKS transforms content creation from manual labor into a fully orchestrated AI-native operating system capable of scaling multi-platform media pipelines with minimal human intervention.
+</p>
+
+<br/>
+
+<a href="#-system-architecture">Architecture</a>
+·
+<a href="#-core-features">Features</a>
+·
+<a href="#-local-development-setup">Setup</a>
+·
+<a href="#-roadmap--future-vision">Roadmap</a>
 
 </div>
 
 ---
 
-## 🎬 Cinematic Preview
+# 🌌 CINEMATIC PREVIEW
 
 <div align="center">
-  <img src="https://images.unsplash.com/photo-1551288049-bbbda536ad37?q=80&w=2670&auto=format&fit=crop" width="800px" alt="Matiks Dashboard Preview" style="border-radius: 10px; border: 1px solid #333;" />
-  <p><em>The Operator Command Center: A high-fidelity view into 12 parallel content streams.</em></p>
+
+### 🖥️ Operator Command Center
+
+<img src="./assets/dashboard-preview.gif" width="100%" />
+
+<br/><br/>
+
+### 🎬 AI Reel Generation Pipeline
+
+<img src="./assets/pipeline-preview.gif" width="100%" />
+
+<br/><br/>
+
+### 📊 Analytics Intelligence Layer
+
+<img src="./assets/analytics-preview.png" width="100%" />
+
 </div>
 
 ---
 
-## 💡 Why This Project Exists
+# 🧠 WHY THIS PROJECT EXISTS
 
-In the modern attention economy, the bottleneck isn't creativity—it's **execution scale**. Managing 10+ high-quality short-form channels manually is a recipe for creative bankruptcy. 
+The content economy is broken.
 
-Matiks Content OS treats short-form content like a **distributed system**. By decoupling ideation, research, scripting, and rendering into specialized AI-native services, we enable a single human operator to oversee a content empire that would normally require a 20-person agency.
+Modern short-form media production suffers from:
 
-### The Pain Points We Solve:
-*   **The Scripting Wall:** Writing 20+ scripts a day that maintain brand-tight voice.
-*   **The Context Switch:** Jumping between 10 different niches and audiences.
-*   **The QA Bottleneck:** Reviewing hours of footage for small rendering glitches.
-*   **The Feedback Loop:** Manually tracking what worked and applying it to tomorrow's ideas.
+- endless context switching
+- inconsistent creative quality
+- manual production bottlenecks
+- weak scalability
+- fragmented tooling
+- operational burnout
+
+Most creators operate like freelancers.
+
+MATIKS operates like infrastructure.
+
+This system was engineered to turn content creation into a scalable distributed workflow where:
+- AI handles execution
+- humans handle direction
+- systems handle scale
+
+The goal is not “AI tools.”
+
+The goal is:
+# Autonomous Media Operations.
 
 ---
 
-## ✨ Core Features
+# ✨ CORE FEATURES
 
-| Feature | Impact Statement | Tech Stack |
-| :--- | :--- | :--- |
-| **8-Stage Pipeline** | From raw idea to analyzed post without manual handoffs. | Supabase + QStash |
-| **AI Studio** | Structured streaming of reel briefs (hooks, beats, B-roll prompts). | Gemini 3 Flash + AI SDK |
-| **Multi-Niche Voice** | Channel-locked voice IDs and brand kits for zero context-drift. | ElevenLabs |
-| **Predictive Virality** | Inbound scoring based on historical performance clusters. | GPT-5 (Simulated) |
-| **Guest Access** | Instant demo bypass for frictionless hiring manager review. | Custom Auth Logic |
+<div align="center">
+
+| ⚡ System | 🚀 Capability | 🧠 Impact |
+|---|---|---|
+| AI Script Engine | Generates structured scripts with hooks, retention curves & CTA logic | Removes scripting bottlenecks |
+| Multi-Channel Orchestration | Manage 10+ channels simultaneously | Massive scale from single operator |
+| Brand Voice Locking | Context-persistent identity generation | Zero tone inconsistency |
+| Reel Intelligence Layer | Viral scoring + predictive analytics | Data-driven growth |
+| AI Research Engine | Autonomous topic extraction & synthesis | Faster content ideation |
+| Render Pipeline | AI-assisted rendering workflows | Production acceleration |
+| Analytics Feedback Loop | Learns from performance metrics | Self-improving system |
+| Queue-Based Architecture | Distributed processing pipelines | Enterprise scalability |
+
+</div>
 
 ---
 
-## 🏗️ System Architecture
+# 🧬 TECH STACK
 
-Matiks is built as a highly modular event-driven system. Every piece of content is an object moving through a state machine.
+<div align="center">
+
+## ⚙️ Frontend Infrastructure
+
+<img src="https://skillicons.dev/icons?i=nextjs,react,typescript,tailwind,vercel" />
+
+---
+
+## 🧠 AI + Backend Infrastructure
+
+<img src="https://skillicons.dev/icons?i=nodejs,postgres,supabase,redis,docker" />
+
+---
+
+## ☁️ Deployment + DevOps
+
+<img src="https://skillicons.dev/icons?i=githubactions,linux,bash,cloudflare" />
+
+</div>
+
+---
+
+# 🏗️ SYSTEM ARCHITECTURE
 
 ```mermaid
 graph TD
-    A[Trend Bot] -->|Idea| B(Research Service)
-    B -->|Fact Check| C(Script Engine)
-    C -->|Reel Brief| D{QA Gate}
-    D -->|Approved| E[Render Farm]
-    D -->|Flagged| F((Operator Hub))
-    E -->|MP4| G[Scheduler]
-    G -->|Post| H[Instagram Graph API]
-    H -->|24h Metrics| I[Feedback Loop]
-    I -->|Learn| A
+
+A[🔥 Trend Detection Engine]
+--> B[🧠 AI Research Layer]
+
+B --> C[✍️ Script Generation Engine]
+
+C --> D[🎬 Content Assembly Pipeline]
+
+D --> E[🎤 Voice Synthesis]
+
+E --> F[🎞️ Rendering Infrastructure]
+
+F --> G[📡 Publishing Gateway]
+
+G --> H[📊 Analytics Collection]
+
+H --> I[🤖 Feedback Intelligence Loop]
+
+I --> A
 ```
 
 ---
 
-## 🛠️ Tech Stack
+# 📂 PROJECT STRUCTURE
 
-### Frontend Architecture
-*   **Next.js 16 (App Router):** The backbone for high-performance server-side rendering.
-*   **Tailwind CSS 4:** Cutting-edge styling with maximum flexibility.
-*   **Framer Motion:** Premium micro-animations for an "alive" interface.
-*   **Recharts:** Beautiful, data-dense analytics visualizations.
-
-### Backend & AI Infrastructure
-*   **Supabase (PostgreSQL):** Robust relational data for complex pipeline tracking.
-*   **Upstash:** Orchestrating the system with Redis rate-limiting and QStash queues.
-*   **ElevenLabs:** The world's best AI voices for production-ready audio.
-*   **Google Gemini 3:** High-volume, structured content generation at scale.
-
----
-
-## 📂 Project Structure
-
-```text
-ai-content-engine/
-├── frontend/               # Next.js 16 Core Application
-│   ├── app/                # App Router Pages (Studio, Pipeline, etc.)
-│   ├── components/         # Premium UI Components (shadcn/ui)
-│   ├── styles/             # Tailwind 4 Global Styles
-│   └── middleware.ts       # Supabase Session Management
-├── backend/                # Shared Library & Operational Scripts
-│   ├── lib/                # Core queries, schemas, and AI providers
-│   ├── scripts/            # Database seeding and migrations
-│   └── supabase/           # PostgreSQL Migrations
-├── vercel.json             # Deployment orchestration
-└── README.md               # You are here
-```
-
----
-
-## 🚀 Local Development Setup
-
-Follow these steps to spin up the entire OS on your machine.
-
-### 1. Prerequisites
-*   Node.js **22.x** or higher
-*   pnpm **9.x** (recommended) or npm
-*   A Supabase project (Free tier works perfectly)
-
-### 2. Environment Configuration
-Create a `frontend/.env.local` file:
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=your_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key # Required for seeding
-GOOGLE_GENERATIVE_AI_API_KEY=your_key
-ELEVENLABS_API_KEY=your_key
+matiks-content-os/
+│
+├── frontend/
+│   ├── app/
+│   ├── components/
+│   ├── animations/
+│   ├── hooks/
+│   ├── providers/
+│   ├── styles/
+│   └── middleware.ts
+│
+├── backend/
+│   ├── ai/
+│   ├── orchestration/
+│   ├── pipelines/
+│   ├── workers/
+│   ├── lib/
+│   └── services/
+│
+├── infrastructure/
+│   ├── docker/
+│   ├── monitoring/
+│   ├── scripts/
+│   └── deployment/
+│
+├── public/
+├── docs/
+├── assets/
+├── LICENSE.md
+└── README.md
 ```
 
-### 3. Installation & Database Setup
+---
+
+# 🚀 LOCAL DEVELOPMENT SETUP
+
+## 📦 Prerequisites
+
+| Requirement | Version |
+|---|---|
+| Node.js | 22+ |
+| pnpm | 9+ |
+| PostgreSQL | Latest |
+| Supabase | Recommended |
+| Git | Latest |
+
+---
+
+## ⚡ Clone Repository
+
 ```bash
-# Install dependencies
-npm install
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
 
-# Run database migrations (Execute in Supabase SQL Editor)
-# Found in: backend/supabase/migrations/0001_init.sql
-
-# Seed the database with demo data
-cd backend
-npm run seed
+cd YOUR_REPO
 ```
 
-### 4. Run the Dashboard
+---
+
+## 📥 Install Dependencies
+
 ```bash
-cd frontend
-npm run dev
+pnpm install
 ```
-Open [http://localhost:3000](http://localhost:3000) to enter the Command Center.
 
 ---
 
-## 🗺️ Roadmap & Future Vision
+## 🔐 Environment Variables
 
-- [x] **v0.1:** Core Pipeline & UI Dashboard
-- [x] **v0.2:** AI Studio with Gemini Streaming
-- [ ] **v0.3:** Live Instagram Graph API Integration
-- [ ] **v0.4:** Autonomous A/B testing of hooks
-- [ ] **v1.0:** The "Autonomous Operator" (AI manages its own QA flags)
+Create:
+
+```bash
+frontend/.env.local
+```
+
+Example:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+
+OPENAI_API_KEY=
+GOOGLE_API_KEY=
+ELEVENLABS_API_KEY=
+
+UPSTASH_REDIS_REST_URL=
+UPSTASH_REDIS_REST_TOKEN=
+```
 
 ---
 
-## 📜 License: Custom Non-Commercial
+## 🗄️ Database Setup
 
-This project is licensed under a **Custom Non-Commercial Research License**. 
+```bash
+pnpm db:migrate
 
-*   **You ARE allowed to:** Fork, study, modify, and use for private research or hiring evaluation.
-*   **You are NOT allowed to:** Use this for commercial profit, resell, or include in any SaaS product without explicit permission.
-
-Full details can be found in [LICENSE.md](./LICENSE.md).
+pnpm db:seed
+```
 
 ---
+
+## 🖥️ Start Development Server
+
+```bash
+pnpm dev
+```
+
+Localhost:
+
+```bash
+http://localhost:3000
+```
+
+---
+
+# 📈 PERFORMANCE PHILOSOPHY
+
+MATIKS was designed around:
+- low-latency AI workflows
+- event-driven orchestration
+- distributed queues
+- edge-first rendering
+- modular scalability
+- AI concurrency optimization
+
+The architecture prioritizes:
+- throughput
+- reliability
+- automation leverage
+- minimal operational friction
+
+---
+
+# 🔒 SECURITY
+
+### Security Layers Included
+
+- JWT-based auth handling
+- Environment isolation
+- Role-based access systems
+- API validation
+- Queue protection
+- Secure server actions
+- Rate limiting
+- AI request sanitization
+- Database policy enforcement
+
+---
+
+# 🛣️ ROADMAP & FUTURE VISION
+
+## CURRENT PHASE
+
+- [x] AI Workflow Infrastructure
+- [x] Dashboard UI
+- [x] Multi-stage Pipeline
+- [x] Research Layer
+- [x] Rendering Architecture
+
+---
+
+## NEXT PHASE
+
+- [ ] Autonomous Hook Optimization
+- [ ] AI Thumbnail Generation
+- [ ] Multi-language Expansion
+- [ ] Viral Prediction Engine
+- [ ] Agentic Content Scheduling
+
+---
+
+## LONG-TERM VISION
+
+MATIKS aims to become:
+
+> The Operating System for AI-Native Media Companies.
+
+Future expansion includes:
+- autonomous creative agents
+- self-optimizing media pipelines
+- AI-run channel ecosystems
+- enterprise orchestration tooling
+- media intelligence infrastructure
+
+---
+
+# 🤝 CONTRIBUTING
+
+We welcome:
+- infrastructure improvements
+- workflow optimizations
+- AI pipeline enhancements
+- performance contributions
+- architectural refinements
+
+## Contribution Flow
+
+```bash
+fork → branch → commit → pull request
+```
+
+### Branch Naming
+
+```bash
+feature/ai-render-engine
+fix/auth-race-condition
+```
+
+### Commit Style
+
+```bash
+feat: add AI orchestration layer
+fix: repair rendering queue deadlock
+```
+
+---
+
+# 📜 LICENSE
+
+## Custom Non-Commercial Research License
+
+### ✅ Allowed
+- Research
+- Learning
+- Forking
+- Private modifications
+- Educational usage
+- Contribution submissions
+
+### ❌ Not Allowed
+- Commercial usage
+- SaaS resale
+- Paid client deployment
+- Redistribution for profit
+- Proprietary monetization
+
+This repository exists for:
+research, experimentation, engineering exploration, and educational advancement.
+
+See:
+```bash
+LICENSE.md
+```
+
+---
+
+# 👨‍💻 TEAM
 
 <div align="center">
-  <p>Built with 🖤 for the Matiks Hiring Team.</p>
-  <p><b>Building the future of intelligent systems, one commit at a time.</b></p>
+
+## MATIKS LABS
+
+Engineering autonomous systems for scalable digital media infrastructure.
+
+<br/>
+
+### Founder
+Harsh — Systems, AI Infrastructure & Creative Engineering
+
+<br/>
+
+### Mission
+Build tools that allow one human to operate at the scale of entire media companies.
+
+</div>
+
+---
+
+# ⭐ FINAL NOTE
+
+<div align="center">
+
+### If this project helped you, consider starring the repository.
+
+<br/>
+
+Building the future of autonomous media systems.
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:6C63FF,100:0F0F0F&height=140&section=footer" width="100%" />
+
 </div>
