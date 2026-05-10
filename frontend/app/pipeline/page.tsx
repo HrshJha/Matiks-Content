@@ -57,7 +57,7 @@ export default async function PipelinePage() {
                     </div>
                   )}
                   {cards.map((r) => {
-                    const ch = getChannel(r.channelId)!
+                    const ch = getChannel(r.channelId)
                     return (
                       <article
                         key={r.id}
@@ -65,7 +65,7 @@ export default async function PipelinePage() {
                       >
                         <div className="flex items-center justify-between">
                           <span className="font-mono text-[10px] text-muted-foreground">
-                            {r.id}
+                            {r.id.slice(-6)}
                           </span>
                           {r.scoreInbound != null && (
                             <span className="font-mono text-[10px] text-muted-foreground">
@@ -79,7 +79,7 @@ export default async function PipelinePage() {
                         </p>
                         <div className="mt-3 flex items-center justify-between">
                           <span className="font-mono text-[10px] text-muted-foreground">
-                            @{ch.handle}
+                            {ch ? `@${ch.handle}` : `ch:${r.channelId?.slice(-6) ?? '?'}`}
                           </span>
                           {r.scheduledFor && (
                             <span className="font-mono text-[10px] text-foreground">
