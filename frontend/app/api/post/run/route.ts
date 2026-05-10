@@ -98,7 +98,7 @@ export async function GET(req: NextRequest) {
         await supabase
           .from("reels")
           .update({
-            stage: "posted" as any,
+            stage: "analyzed" as any,
             posted_at: now,
             ig_media_id: postResult.data.mediaId,
           })
