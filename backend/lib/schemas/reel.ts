@@ -42,8 +42,7 @@ export const STAGE_TRANSITIONS: Record<string, string[]> = {
   voiceover: ["assets"],
   assets: ["rendered"],
   rendered: ["queued"],
-  queued: ["posted"],
-  posted: ["analyzed"],
+  queued: ["analyzed"],
   analyzed: [],
 };
 
