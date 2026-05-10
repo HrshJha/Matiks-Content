@@ -33,9 +33,9 @@ export default async function HomePage() {
   const CHANNELS = await getChannelsByOwner(userId);
   const REELS = await getReelsByOwner(userId);
 
-  const livePosts = REELS.filter((r) => r.stage === "posted").length
+  const livePosts = REELS.filter((r) => r.stage === "analyzed").length
   const inFlight = REELS.filter(
-    (r) => !["posted", "analyzed"].includes(r.stage),
+    (r) => r.stage !== "analyzed",
   ).length
   const top = [...REELS]
     .filter((r) => r.views)
