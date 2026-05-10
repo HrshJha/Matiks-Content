@@ -385,7 +385,6 @@ export default function TeardownPage() {
 {'}'}
 </code></pre>
           </div>
-          </div>
 
           <div className="mt-12 space-y-6 max-w-3xl">
             <div>
