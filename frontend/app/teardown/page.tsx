@@ -1,5 +1,5 @@
 import { AppShell } from "@/components/app-shell"
-import { ArrowDown, AlertTriangle, Wrench, Repeat } from "lucide-react"
+import { ArrowDown, AlertTriangle, Wrench, Repeat, GitCommit, Database } from "lucide-react"
 
 function H2({ children, num }: { children: React.ReactNode; num: string }) {
   return (
@@ -65,7 +65,7 @@ function Bottleneck({
         <Wrench className="size-3.5 text-foreground mt-0.5 shrink-0" />
         <p className="text-sm">
           <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground mr-1">
-            How I'd fix it:
+            Fix:
           </span>
           {fix}
         </p>
@@ -85,7 +85,7 @@ export default function TeardownPage() {
           Reverse-engineering the modern content factory.
         </h1>
         <p className="mt-5 text-base text-muted-foreground leading-relaxed max-w-3xl">
-          If you look closely at how modern AI-native media companies operate, you realize something pretty fast: they aren't creators. They're workflow systems. The "content" is just exhaust from a well-oiled state machine. I spent a few weeks pulling apart two common archetypes to see what's actually running under the hood. Not the marketing pitch—the actual routing logic, the queue structures, and the exact spots where humans are still forced to intervene.
+          If you look closely at how modern AI-native media companies operate, you realize something pretty fast: they aren't creators. They're workflow systems. The "content" is just an output artifact of a continuous job queue. I spent a few weeks pulling apart two common archetypes to see what's actually running under the hood. Not the marketing pitch—the actual routing logic, the queue structures, and the exact spots where humans are still forced to intervene.
         </p>
 
         {/* TOC */}
@@ -93,7 +93,7 @@ export default function TeardownPage() {
           {[
             ["A", "Faceless page architecture"],
             ["B", "AI-UGC DTC brands"],
-            ["C", "How to build this natively"],
+            ["C", "How I'd actually build this"],
           ].map(([n, t]) => (
             <a
               key={n}
@@ -189,17 +189,11 @@ export default function TeardownPage() {
               detail="Uncanny valley kicks in hard. Leaning entirely on generative video tanks your save and share metrics, even if the hook gets them to watch the first 3 seconds."
               fix="Hard-cap generative video usage. Fall back to high-quality stock matched by semantic search for the bulk of the timeline."
             />
-            <Bottleneck
-              title="Platform dependency"
-              detail="These pipelines are fragile. One shadowban or API token expiration and the entire factory grinds to a halt."
-              fix="Decouple the infrastructure. Isolate tokens per channel and build a fallback posting queue."
-            />
-            <Bottleneck
-              title="Echo chamber effect"
-              detail="When your ingest layer only scrapes Instagram, you end up making the exact same content as everyone else scraping Instagram."
-              fix="Point the ingest layer at orthogonal data. Parse niche newsletters, old forums, or podcast transcripts to find ideas that haven't been beaten to death."
-            />
           </div>
+
+          <p className="mt-8 text-sm text-muted-foreground border-l-2 border-border pl-4">
+            <strong>The failure state:</strong> A lot of these faceless pages collapse once the content factory outruns the feedback loop. They scale output volume infinitely, but they don't scale taste calibration. Eventually, the channel just pumps out pure noise, the audience drops off, and the algorithm chokes it entirely.
+          </p>
         </section>
 
         <div className="my-16 flex justify-center text-muted-foreground">
@@ -255,36 +249,16 @@ export default function TeardownPage() {
                 detail="You still need real product shots to sell physical goods. They usually bank a ton of human-shot b-roll once a quarter, and the system programmatically splices those clips over the synthetic actor to ground the ad in reality."
                 tools={["Asset assembly"]}
               />
-              <StepRow
-                step="Learn"
-                title="Testing at scale"
-                detail="The renders are pushed straight to the ad networks. The system pulls ROAS data daily, kills the losers, and tells the angle generator to double down on the winning patterns. It's basically an evolutionary algorithm for ad spend."
-                tools={["Ad network APIs", "Data warehouse"]}
-              />
             </div>
           </div>
 
-          <div className="mt-8 grid sm:grid-cols-2 gap-3">
-            <Bottleneck
-              title="Avatar blindness"
-              detail="People pattern-match quickly. If the same synthetic guy shows up in 40 different ads on your feed, the illusion shatters and thumb-stop rates plummet."
-              fix="Manage actors like ad inventory. Put strict impression caps on specific avatars before forcing a rotation."
-            />
-            <Bottleneck
-              title="Compliance risks"
-              detail="If the script generator hallucinates an FDA-violating health claim and the avatar reads it, the brand is still on the hook. This is the biggest actual risk in the pipeline."
-              fix="Enforce a rigid claim schema. Run a separate LLM pass purely for compliance checking, backed by hard regex blocklists."
-            />
-            <Bottleneck
-              title="The b-roll starvation"
-              detail="The whole synthetic pipeline starves if it doesn't have fresh, real-world product clips to splice in. It creates a weird physical bottleneck."
-              fix="Standardize the physical shoots. Bank hundreds of generic, well-lit product clips quarterly and tag them meticulously so the system can pull them."
-            />
-            <Bottleneck
-              title="Ad account bans"
-              detail="Dumping massive volume from API connections makes ad networks nervous. Tripping a spam filter and losing a business manager account is a disaster."
-              fix="Shard the risk. Distribute the ad load across multiple accounts and deliberately throttle the upload velocity."
-            />
+          <div className="mt-10 space-y-5 text-base text-muted-foreground max-w-3xl leading-relaxed">
+            <p>
+              I probably wouldn't start with full multi-agent orchestration if I were building this internally. Operational simplicity matters way more than theoretical autonomy at this scale. Having five agents negotiating with each other in the background sounds cool, but it's a nightmare to debug when a live ad hallucinates an FDA-violating health claim.
+            </p>
+            <p>
+              The real bottleneck here isn't the video generation—it's compliance and asset starvation. The whole pipeline starves if you don't have fresh, real-world product clips to splice over the avatar. It creates a very physical constraint in an otherwise entirely digital system.
+            </p>
           </div>
         </section>
 
@@ -294,71 +268,88 @@ export default function TeardownPage() {
 
         {/* CASE C - recreation */}
         <section id="case-C">
-          <H2 num="Case C">How to build this natively</H2>
+          <H2 num="Case C">How I'd actually build this</H2>
           <p className="mt-3 text-muted-foreground max-w-3xl leading-relaxed">
-            Zoom out, and both of those archetypes are the exact same machine. The "queue" is the actual product. Content just moves through processing nodes, and humans only exist to handle exceptions. That's the core thesis of Frame OS. If I were building an autonomous media layer today, here's the architecture I'd use.
+            Zoom out, and both of those archetypes are the exact same machine. The queue is the actual product. Content just moves through processing nodes, and humans only exist to handle exceptions. That's the core thesis of Frame OS.
           </p>
 
-          <ol className="mt-8 space-y-3">
-            {[
-              [
-                "Channels are configuration, not headcount.",
-                "An Instagram account should just be a database row. You give it a niche, a voice profile, and posting rules. Scaling up your media presence means adding a row to a table, not hiring another social media manager.",
-              ],
-              [
-                "Treat it like a distributed system.",
-                "Build one central queue with distinct states. Every reel is just an object moving through transitions: Idea, Script, Asset, QA. Make the workers modular. If a cheaper video model drops tomorrow, you just swap the endpoint. The queue doesn't care.",
-              ],
-              [
-                "LLMs execute. Humans curate.",
-                "Stop using humans for raw execution. Let the models mine the trends and write the captions. The operator's only job is to define the taste—setting guardrails, tuning blocklists, and checking the anomaly queue when a render fails.",
-              ],
-              [
-                "Keep the stack boring.",
-                "Don't overcomplicate the plumbing. Use Postgres for state, a rock-solid background job runner, and standard object storage. Keep your internal logic simple and let the external providers do the heavy compute.",
-              ],
-              [
-                "Test the structure, not just the output.",
-                "Hooks are reusable primitives. You shouldn't just A/B test a finished video; you should test the underlying structural pattern. Once a pattern hits, you can programmatically map fifty new topics onto it.",
-              ],
-              [
-                "Automate the feedback loop.",
-                "Weekly analytics meetings are too slow. Write a background job that parses yesterday's top quartile performers and automatically weights those exact patterns higher in tomorrow's script generation.",
-              ],
-              [
-                "Optimize for operator leverage.",
-                "A single operator should comfortably manage a dozen channels. Their day is just clearing the QA queue and adjusting the trend weights. If they're manually copying and pasting anything, the system is broken.",
-              ],
-            ].map(([title, detail], i) => (
-              <li
-                key={title}
-                className="grid grid-cols-[36px_1fr] gap-3 rounded-md border border-border bg-card p-4 hover:border-foreground/20 transition-colors"
-              >
-                <div className="font-serif text-2xl text-muted-foreground">
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <div>
-                  <p className="font-medium">{title}</p>
-                  <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-                    {detail}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <p className="mt-6 text-foreground font-medium">The Queue State Schema</p>
+          <p className="mt-2 text-sm text-muted-foreground max-w-2xl">
+            If I were building this from scratch today, I'd start entirely with the data model. No video rendering, no LLM calls until the state machine is perfectly defined. Here is roughly what the core Supabase table looks like to drive the entire factory:
+          </p>
 
-          <div className="mt-12 rounded-md border-2 border-foreground bg-card p-6">
-            <div className="flex items-center gap-2">
-               <Repeat className="size-4" />
-              <p className="font-mono text-[10px] uppercase tracking-widest">
-                The leverage model
+          <div className="mt-5 bg-[#0a0a0a] text-[#d4d4d4] p-5 rounded-md border border-border/40 font-mono text-[13px] overflow-x-auto shadow-sm">
+            <div className="flex items-center gap-2 mb-3 text-muted-foreground/60 pb-2 border-b border-border/20">
+              <Database className="size-3" />
+              <span>public.content_queue</span>
+            </div>
+<pre><code>{`CREATE TABLE content_queue (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  channel_id text NOT NULL,
+  
+  -- The state machine transitions
+  status text NOT NULL CHECK (
+    status IN ('ideation', 'scripting', 'asset_gen', 'qa', 'scheduled', 'failed')
+  ),
+  
+  -- Ties back to the winning structural pattern
+  hook_primitive_id text REFERENCES hook_primitives(id), 
+  
+  -- The structured beats parsed by the video compiler
+  script_payload jsonb, 
+  
+  -- Artifact pointers
+  render_url text,
+  
+  -- Closed loop feedback
+  metrics_24h jsonb,
+  
+  created_at timestamptz DEFAULT now()
+);`}</code></pre>
+          </div>
+
+          <div className="mt-12 space-y-6 max-w-3xl">
+            <div>
+              <p className="font-medium">1. Channels are configuration, not headcount.</p>
+              <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+                An Instagram account should just be a database row. You give it a niche, a voice profile, and posting rules. Scaling up your media presence means adding a row to a table, not hiring another social media manager.
               </p>
             </div>
-            <p className="mt-3 font-serif text-2xl leading-tight">
-              One operator managing four agents. Each agent runs three channels. Two posts a day per channel. That's 24 posts daily with near-zero friction. Scaling to 48 just means spinning up more agents.
+            
+            <div>
+              <p className="font-medium">2. Treat it like a distributed system.</p>
+              <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+                Every reel is just an object moving through transitions: Idea, Script, Asset, QA. Make the workers modular. If a cheaper video model drops tomorrow, you just swap the endpoint. The queue doesn't care.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-medium">3. LLMs execute. Humans curate.</p>
+              <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+                Stop using humans for raw execution. Let the models mine the trends and write the captions. The operator's only job is to define the taste—setting guardrails, tuning blocklists, and checking the anomaly queue when a render fails.
+              </p>
+            </div>
+
+            <div>
+              <p className="font-medium">4. Keep the stack boring.</p>
+              <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+                Don't overcomplicate the plumbing. Postgres for state, a rock-solid background job runner, and standard object storage. Keep your internal logic simple and let the external providers do the heavy compute.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 rounded-md border-2 border-foreground bg-card p-6 max-w-2xl">
+            <div className="flex items-center gap-2 text-foreground">
+               <GitCommit className="size-4" />
+              <p className="font-mono text-[10px] uppercase tracking-widest">
+                The Narrative Entropy Problem
+              </p>
+            </div>
+            <p className="mt-4 text-sm leading-relaxed">
+              The actual bottleneck in modern media isn't generation quality anymore. <strong>It's narrative entropy.</strong> 
             </p>
-            <p className="mt-3 text-sm text-muted-foreground">
-              The blended compute cost sits around $0.60 per post. The operator spends a few minutes a day clearing flagged items. For the other 23 hours, the infrastructure just hums.
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+              Once every channel optimizes the exact same hook structures from the exact same dataset, audiences stop emotionally distinguishing between creators. The system eats itself. The only moats left in this space are proprietary data ingestion (scraping things that aren't already optimized for social media) and highly calibrated human taste. 
             </p>
           </div>
         </section>
