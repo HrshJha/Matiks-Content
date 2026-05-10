@@ -58,7 +58,20 @@ export const reelBriefSchema = z.object({
 
 export type ReelBrief = z.infer<typeof reelBriefSchema>
 
+import { checkStudioRateLimit } from "@backend/auth/ratelimit"
+
 export async function POST(req: Request) {
+  // Use IP for rate limiting, fallback to generic "studio-req"
+  const ip = req.headers.get("x-forwarded-for") ?? "studio-req"
+  const { success } = await checkStudioRateLimit(ip)
+  
+  if (!success) {
+    return new Response(JSON.stringify({ error: "Rate limit exceeded. Please wait a minute before generating again." }), {
+      status: 429,
+      headers: { "Content-Type": "application/json" }
+    })
+  }
+
   const body = await req.json().catch(() => ({}))
   const niche: string = body.niche || "personal finance × AI tools"
   const format: string = body.format || "AI avatar talking-head"
