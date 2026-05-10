@@ -1,0 +1,19 @@
+{
+  "buildCommand": "cd frontend && npm run build",
+  "outputDirectory": "frontend/.next",
+  "installCommand": "cd frontend && npm install",
+  "crons": [
+    {
+      "path": "/api/post/run",
+      "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/metrics/sync",
+      "schedule": "0 * * * *"
+    },
+    {
+      "path": "/api/feedback/run",
+      "schedule": "0 9 * * 1"
+    }
+  ]
+}

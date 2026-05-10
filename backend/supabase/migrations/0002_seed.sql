@@ -1,0 +1,44 @@
+-- Seed data for channels (run after 0001_init.sql)
+-- Note: This seed uses a placeholder owner_id. In production, 
+-- you would seed channels per-organization after user creation.
+
+-- This seed is for demonstration purposes. In a real deployment,
+-- channels would be created through the app after authentication.
+
+-- Placeholder seed: create a single demo channel for testing
+-- The actual channel creation happens via the app after login
+
+-- Seed example data (commented out - uncomment after setting up auth)
+-- insert into channels (owner_id, handle, niche, language, status, followers, d7_reach, hook_rate, save_rate)
+-- values 
+--   ('00000000-0000-0000-0000-000000000001', 'ai.money.engine', 'Personal finance × AI tools', 'EN', 'active', 184220, 2410000, 71.00, 6.20),
+--   ('00000000-0000-0000-0000-000000000001', 'solo.builder.diary', 'Indie hacker journals', 'EN', 'active', 92410, 1120000, 64.00, 8.10);
+
+-- Re-enable when needed
+-- ALTER TABLE channels DISABLE ROW LEVEL SECURITY;
+-- insert into channels (owner_id, handle, niche, language, status, followers, d7_reach, hook_rate, save_rate)
+-- select 
+--   uuid_generate_v4(), 
+--   handle, 
+--   niche, 
+--   case language when 'HI' then 'HI' when 'EN' then 'EN' else 'EN' end,
+--   case status when 'live' then 'active' when 'ramping' then 'warming' when 'paused' then 'paused' end,
+--   followers,
+--   d7_reach,
+--   hook_rate,
+--   save_rate
+-- from (values 
+--   ('ai.money.engine', 'Personal finance × AI tools', 'EN', 'live', 184220, 2410000, 71.00, 6.20),
+--   ('solo.builder.diary', 'Indie hacker journals', 'EN', 'live', 92410, 1120000, 64.00, 8.10),
+--   ('ceo.deepcuts', 'Founder interview clips', 'EN', 'live', 311900, 4870000, 78.00, 4.40),
+--   ('neon.recipes', '60-second recipes', 'EN', 'live', 421700, 6140000, 69.00, 12.10),
+--   ('midnight.history', 'Dark history facts', 'EN', 'live', 612300, 8220000, 81.00, 5.80),
+--   ('quiet.therapy', 'Soft journaling prompts', 'EN', 'ramping', 88140, 980000, 58.00, 14.20),
+--   ('iron.philosophy', 'Stoic / mindset', 'EN', 'live', 503900, 7010000, 74.00, 9.40),
+--   ('paisa.product', 'DTC product reviews (Hindi)', 'HI', 'ramping', 71500, 640000, 55.00, 3.20),
+--   ('dev.dispatch', 'Daily dev news', 'EN', 'live', 142800, 1840000, 62.00, 7.00),
+--   ('fit.protocol', 'Fitness science 90s', 'EN', 'live', 256600, 3310000, 67.00, 8.80),
+--   ('vault.creators', 'Creator economy data', 'EN', 'ramping', 49300, 410000, 60.00, 11.30),
+--   ('luxe.cars.daily', 'Supercar facts + B-roll', 'EN', 'live', 388400, 5220000, 70.00, 4.10)
+-- ) as data(handle, niche, language, status, followers, d7_reach, hook_rate, save_rate);
+-- ALTER TABLE channels ENABLE ROW LEVEL SECURITY;
