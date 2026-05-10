@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=320&color=0:050816,25:111827,50:6D28D9,75:A855F7,100:050816&text=MATIKS%20CONTENT%20OS&fontColor=ffffff&fontSize=58&fontAlignY=38&desc=Autonomous%20AI-Native%20Media%20Infrastructure&descAlignY=58&descSize=20&animation=fadeIn" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=320&color=0:050816,25:111827,50:6D28D9,75:A855F7,100:050816&text=FRAME%20OS&fontColor=ffffff&fontSize=58&fontAlignY=38&desc=Autonomous%20AI-Native%20Media%20Infrastructure&descAlignY=58&descSize=20&animation=fadeIn" />
 
 <br/>
 
@@ -48,7 +48,7 @@
 </h2>
 
 <p align="center">
-MATIKS transforms content creation from manual labor into a fully orchestrated AI-native operating system capable of scaling multi-platform media pipelines with minimal human intervention.
+FRAME OS transforms content creation from manual labor into a fully orchestrated AI-native operating system capable of scaling multi-platform media pipelines with minimal human intervention.
 </p>
 
 <br/>
@@ -113,7 +113,7 @@ Modern short-form content systems suffer from:
 
 Most creators operate manually.
 
-MATIKS operates like infrastructure.
+FRAME OS operates like infrastructure.
 
 This project was engineered to transform content creation into an autonomous distributed system where:
 
@@ -202,7 +202,7 @@ I --> A
 # 📂 PROJECT STRUCTURE
 
 ```bash
-matiks-content-os/
+frame-os/
 │
 ├── frontend/
 │   ├── app/
@@ -324,7 +324,7 @@ http://localhost:3000
 
 # 📈 PERFORMANCE PHILOSOPHY
 
-MATIKS was engineered around:
+FRAME OS was engineered around:
 
 - ⚡ low-latency AI workflows
 - 🧠 autonomous orchestration
@@ -381,7 +381,7 @@ The system prioritizes:
 
 ## 🌌 LONG-TERM VISION
 
-MATIKS aims to become:
+FRAME OS aims to become:
 
 > The Operating System for AI-Native Media Companies.
 
@@ -463,7 +463,7 @@ research, experimentation, engineering exploration, and educational advancement.
 
 <div align="center">
 
-## ⚡ MATIKS LABS
+## ⚡ FRAME LABS
 
 Engineering autonomous systems for scalable digital media infrastructure.
 
