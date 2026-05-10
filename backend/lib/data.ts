@@ -20,7 +20,7 @@ export type Channel = {
 
 export const CHANNELS: Channel[] = [
   {
-    id: "ch_01",
+    id: "00000000-0000-0000-0000-000000000001",
     handle: "ai.money.engine",
     niche: "Personal finance × AI tools",
     language: "EN",
@@ -36,7 +36,7 @@ export const CHANNELS: Channel[] = [
     saveRate: 6.2,
   },
   {
-    id: "ch_02",
+    id: "00000000-0000-0000-0000-000000000002",
     handle: "solo.builder.diary",
     niche: "Indie hacker journals",
     language: "EN",
@@ -52,7 +52,7 @@ export const CHANNELS: Channel[] = [
     saveRate: 8.1,
   },
   {
-    id: "ch_03",
+    id: "00000000-0000-0000-0000-000000000003",
     handle: "ceo.deepcuts",
     niche: "Founder interview clips",
     language: "EN",
@@ -68,7 +68,7 @@ export const CHANNELS: Channel[] = [
     saveRate: 4.4,
   },
   {
-    id: "ch_04",
+    id: "00000000-0000-0000-0000-000000000004",
     handle: "neon.recipes",
     niche: "60-second recipes",
     language: "EN",
@@ -84,7 +84,7 @@ export const CHANNELS: Channel[] = [
     saveRate: 12.1,
   },
   {
-    id: "ch_05",
+    id: "00000000-0000-0000-0000-000000000005",
     handle: "midnight.history",
     niche: "Dark history facts",
     language: "EN",
@@ -100,7 +100,7 @@ export const CHANNELS: Channel[] = [
     saveRate: 5.8,
   },
   {
-    id: "ch_06",
+    id: "00000000-0000-0000-0000-000000000006",
     handle: "quiet.therapy",
     niche: "Soft journaling prompts",
     language: "EN",
@@ -116,7 +116,7 @@ export const CHANNELS: Channel[] = [
     saveRate: 14.2,
   },
   {
-    id: "ch_07",
+    id: "00000000-0000-0000-0000-000000000007",
     handle: "iron.philosophy",
     niche: "Stoic / mindset",
     language: "EN",
@@ -132,7 +132,7 @@ export const CHANNELS: Channel[] = [
     saveRate: 9.4,
   },
   {
-    id: "ch_08",
+    id: "00000000-0000-0000-0000-000000000008",
     handle: "paisa.product",
     niche: "DTC product reviews (Hindi)",
     language: "HI",
@@ -148,7 +148,7 @@ export const CHANNELS: Channel[] = [
     saveRate: 3.2,
   },
   {
-    id: "ch_09",
+    id: "00000000-0000-0000-0000-000000000009",
     handle: "dev.dispatch",
     niche: "Daily dev news",
     language: "EN",
@@ -164,7 +164,7 @@ export const CHANNELS: Channel[] = [
     saveRate: 7.0,
   },
   {
-    id: "ch_10",
+    id: "00000000-0000-0000-0000-000000000010",
     handle: "fit.protocol",
     niche: "Fitness science 90s",
     language: "EN",
@@ -180,7 +180,7 @@ export const CHANNELS: Channel[] = [
     saveRate: 8.8,
   },
   {
-    id: "ch_11",
+    id: "00000000-0000-0000-0000-000000000011",
     handle: "vault.creators",
     niche: "Creator economy data",
     language: "EN",
@@ -196,7 +196,7 @@ export const CHANNELS: Channel[] = [
     saveRate: 11.3,
   },
   {
-    id: "ch_12",
+    id: "00000000-0000-0000-0000-000000000012",
     handle: "luxe.cars.daily",
     niche: "Supercar facts + B-roll",
     language: "EN",
@@ -250,42 +250,42 @@ export type Reel = {
 
 export const REELS: Reel[] = [
   // Idea
-  { id: "rl_201", channelId: "ch_01", hook: "The 3-account system that lets AI move money for you while you sleep", stage: "idea", niche: "finance", scoreInbound: 84 },
-  { id: "rl_202", channelId: "ch_05", hook: "Why every clock in the British Empire was set wrong on purpose", stage: "idea", niche: "history", scoreInbound: 91 },
-  { id: "rl_203", channelId: "ch_09", hook: "The one-line Postgres setting that 10× our checkout", stage: "idea", niche: "dev", scoreInbound: 78 },
-  { id: "rl_204", channelId: "ch_12", hook: "This 1992 supercar still beats a Tesla Plaid in a straight line", stage: "idea", niche: "cars", scoreInbound: 80 },
+  { id: "00000000-0000-0000-0000-000000000201", channelId: "00000000-0000-0000-0000-000000000001", hook: "The 3-account system that lets AI move money for you while you sleep", stage: "idea", niche: "finance", scoreInbound: 84 },
+  { id: "00000000-0000-0000-0000-000000000202", channelId: "00000000-0000-0000-0000-000000000005", hook: "Why every clock in the British Empire was set wrong on purpose", stage: "idea", niche: "history", scoreInbound: 91 },
+  { id: "00000000-0000-0000-0000-000000000203", channelId: "00000000-0000-0000-0000-000000000009", hook: "The one-line Postgres setting that 10× our checkout", stage: "idea", niche: "dev", scoreInbound: 78 },
+  { id: "00000000-0000-0000-0000-000000000204", channelId: "00000000-0000-0000-0000-000000000012", hook: "This 1992 supercar still beats a Tesla Plaid in a straight line", stage: "idea", niche: "cars", scoreInbound: 80 },
 
   // Research
-  { id: "rl_211", channelId: "ch_03", hook: "Sam Altman on what he was wrong about in 2024", stage: "research", niche: "interviews", scoreInbound: 88 },
-  { id: "rl_212", channelId: "ch_07", hook: "Marcus Aurelius wrote one paragraph that destroys 'productivity'", stage: "research", niche: "stoic", scoreInbound: 76 },
+  { id: "00000000-0000-0000-0000-000000000211", channelId: "00000000-0000-0000-0000-000000000003", hook: "Sam Altman on what he was wrong about in 2024", stage: "research", niche: "interviews", scoreInbound: 88 },
+  { id: "00000000-0000-0000-0000-000000000212", channelId: "00000000-0000-0000-0000-000000000007", hook: "Marcus Aurelius wrote one paragraph that destroys 'productivity'", stage: "research", niche: "stoic", scoreInbound: 76 },
 
   // Script
-  { id: "rl_221", channelId: "ch_04", hook: "30-second pasta that fooled an Italian chef", stage: "script", niche: "recipes", scoreInbound: 73 },
-  { id: "rl_222", channelId: "ch_10", hook: "The 4-rep set that builds more muscle than 12", stage: "script", niche: "fitness", scoreInbound: 81 },
-  { id: "rl_223", channelId: "ch_02", hook: "Day 19 of building in public — first $1k MRR", stage: "script", niche: "indie", scoreInbound: 69 },
+  { id: "00000000-0000-0000-0000-000000000221", channelId: "00000000-0000-0000-0000-000000000004", hook: "30-second pasta that fooled an Italian chef", stage: "script", niche: "recipes", scoreInbound: 73 },
+  { id: "00000000-0000-0000-0000-000000000222", channelId: "00000000-0000-0000-0000-000000000010", hook: "The 4-rep set that builds more muscle than 12", stage: "script", niche: "fitness", scoreInbound: 81 },
+  { id: "00000000-0000-0000-0000-000000000223", channelId: "00000000-0000-0000-0000-000000000002", hook: "Day 19 of building in public — first $1k MRR", stage: "script", niche: "indie", scoreInbound: 69 },
 
   // Asset Gen
-  { id: "rl_231", channelId: "ch_01", hook: "I asked GPT-5 to manage my emergency fund. Here's what happened.", stage: "asset_gen", niche: "finance", scoreInbound: 86 },
-  { id: "rl_232", channelId: "ch_07", hook: "Stop trying to be productive. Try this 1779 trick instead.", stage: "asset_gen", niche: "stoic", scoreInbound: 82 },
-  { id: "rl_233", channelId: "ch_08", hook: "₹399 ka product, ₹3000 ka kaam karta hai", stage: "asset_gen", niche: "dtc-hi", scoreInbound: 64 },
+  { id: "00000000-0000-0000-0000-000000000231", channelId: "00000000-0000-0000-0000-000000000001", hook: "I asked GPT-5 to manage my emergency fund. Here's what happened.", stage: "asset_gen", niche: "finance", scoreInbound: 86 },
+  { id: "00000000-0000-0000-0000-000000000232", channelId: "00000000-0000-0000-0000-000000000007", hook: "Stop trying to be productive. Try this 1779 trick instead.", stage: "asset_gen", niche: "stoic", scoreInbound: 82 },
+  { id: "00000000-0000-0000-0000-000000000233", channelId: "00000000-0000-0000-0000-000000000008", hook: "₹399 ka product, ₹3000 ka kaam karta hai", stage: "asset_gen", niche: "dtc-hi", scoreInbound: 64 },
 
   // QA
-  { id: "rl_241", channelId: "ch_05", hook: "The Library of Alexandria didn't burn — it was sold", stage: "qa", niche: "history", blocked: "lip-sync drift @ 00:11", scoreInbound: 89 },
-  { id: "rl_242", channelId: "ch_04", hook: "3-ingredient breakfast that hits 40g protein", stage: "qa", niche: "recipes", scoreInbound: 75 },
+  { id: "00000000-0000-0000-0000-000000000241", channelId: "00000000-0000-0000-0000-000000000005", hook: "The Library of Alexandria didn't burn — it was sold", stage: "qa", niche: "history", blocked: "lip-sync drift @ 00:11", scoreInbound: 89 },
+  { id: "00000000-0000-0000-0000-000000000242", channelId: "00000000-0000-0000-0000-000000000004", hook: "3-ingredient breakfast that hits 40g protein", stage: "qa", niche: "recipes", scoreInbound: 75 },
 
   // Scheduled
-  { id: "rl_251", channelId: "ch_09", hook: "The git command 90% of senior devs use wrong", stage: "scheduled", niche: "dev", scheduledFor: "Today · 7:42 PM IST", scoreInbound: 79 },
-  { id: "rl_252", channelId: "ch_11", hook: "MrBeast's 2026 RPM is lower than your nano-channel's", stage: "scheduled", niche: "creator", scheduledFor: "Today · 9:10 PM IST", scoreInbound: 72 },
-  { id: "rl_253", channelId: "ch_06", hook: "If you can't sleep, write the sentence you're avoiding", stage: "scheduled", niche: "therapy", scheduledFor: "Tomorrow · 6:30 AM IST", scoreInbound: 68 },
+  { id: "00000000-0000-0000-0000-000000000251", channelId: "00000000-0000-0000-0000-000000000009", hook: "The git command 90% of senior devs use wrong", stage: "scheduled", niche: "dev", scheduledFor: "Today · 7:42 PM IST", scoreInbound: 79 },
+  { id: "00000000-0000-0000-0000-000000000252", channelId: "00000000-0000-0000-0000-000000000011", hook: "MrBeast's 2026 RPM is lower than your nano-channel's", stage: "scheduled", niche: "creator", scheduledFor: "Today · 9:10 PM IST", scoreInbound: 72 },
+  { id: "00000000-0000-0000-0000-000000000253", channelId: "00000000-0000-0000-0000-000000000006", hook: "If you can't sleep, write the sentence you're avoiding", stage: "scheduled", niche: "therapy", scheduledFor: "Tomorrow · 6:30 AM IST", scoreInbound: 68 },
 
   // Posted
-  { id: "rl_261", channelId: "ch_03", hook: "Jensen Huang: 'we should have hired the third-best person'", stage: "posted", niche: "interviews", views: 412_000, saveRate: 5.1 },
-  { id: "rl_262", channelId: "ch_12", hook: "The Bugatti you can legally drive in India for ₹0 in tax", stage: "posted", niche: "cars", views: 1_240_000, saveRate: 3.8 },
-  { id: "rl_263", channelId: "ch_01", hook: "I let AI decide my groceries for 30 days", stage: "posted", niche: "finance", views: 312_000, saveRate: 7.2 },
+  { id: "00000000-0000-0000-0000-000000000261", channelId: "00000000-0000-0000-0000-000000000003", hook: "Jensen Huang: 'we should have hired the third-best person'", stage: "posted", niche: "interviews", views: 412_000, saveRate: 5.1 },
+  { id: "00000000-0000-0000-0000-000000000262", channelId: "00000000-0000-0000-0000-000000000012", hook: "The Bugatti you can legally drive in India for ₹0 in tax", stage: "posted", niche: "cars", views: 1_240_000, saveRate: 3.8 },
+  { id: "00000000-0000-0000-0000-000000000263", channelId: "00000000-0000-0000-0000-000000000001", hook: "I let AI decide my groceries for 30 days", stage: "posted", niche: "finance", views: 312_000, saveRate: 7.2 },
 
   // Analyzed
-  { id: "rl_271", channelId: "ch_05", hook: "Cleopatra was closer in time to the iPhone than to the Pyramids", stage: "analyzed", niche: "history", views: 4_120_000, saveRate: 9.4 },
-  { id: "rl_272", channelId: "ch_07", hook: "Read this when you feel behind", stage: "analyzed", niche: "stoic", views: 2_310_000, saveRate: 11.1 },
+  { id: "00000000-0000-0000-0000-000000000271", channelId: "00000000-0000-0000-0000-000000000005", hook: "Cleopatra was closer in time to the iPhone than to the Pyramids", stage: "analyzed", niche: "history", views: 4_120_000, saveRate: 9.4 },
+  { id: "00000000-0000-0000-0000-000000000272", channelId: "00000000-0000-0000-0000-000000000007", hook: "Read this when you feel behind", stage: "analyzed", niche: "stoic", views: 2_310_000, saveRate: 11.1 },
 ]
 
 export function getChannel(id: string) {
@@ -319,12 +319,12 @@ export const FORMATS = [
 
 // Daily ticker events (used on the home page)
 export const TICKER = [
-  "rl_271 hit 4.1M views · save-rate 9.4% · cluster: shock-stat-historical",
+  "00000000-0000-0000-0000-000000000271 hit 4.1M views · save-rate 9.4% · cluster: shock-stat-historical",
   "Render farm queue: 14 jobs · avg wait 6m 12s",
   "Arcads actor 'Maya-IN' booked for 11 reels in next 24h",
   "Veo 3 minute-credits used today: 142 / 600",
   "ElevenLabs concurrency: 7 / 12",
-  "ch_06 quiet.therapy entering ramp phase · 7-day reach +312%",
+  "00000000-0000-0000-0000-000000000006 quiet.therapy entering ramp phase · 7-day reach +312%",
   "Trend bot ingested 4,812 reels · 38 promoted to Idea stage",
   "Scheduler queue across 12 channels: 27 reels lined up next 48h",
 ]
