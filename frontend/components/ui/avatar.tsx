@@ -3,7 +3,7 @@
 import * as React from 'react'
 import * as AvatarPrimitive from '@radix-ui/react-avatar'
 
-import { cn } from '../../backend/lib/utils'
+import { cn } from "@backend/utils"
 
 function Avatar({
   className,

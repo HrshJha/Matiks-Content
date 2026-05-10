@@ -2,7 +2,7 @@
 
 import { cva, type VariantProps } from 'class-variance-authority'
 
-import { cn } from '../../backend/lib/utils'
+import { cn } from "@backend/utils"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'

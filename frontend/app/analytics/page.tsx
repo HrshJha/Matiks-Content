@@ -1,7 +1,7 @@
 "use client"
 
 import { AppShell } from "@/components/app-shell"
-import { CHANNELS, REELS, getChannel } from "../../backend/lib/data"
+import { CHANNELS, REELS, getChannel } from "@backend/data"
 import {
   Area,
   AreaChart,

@@ -1,5 +1,5 @@
 import { AppShell } from "@/components/app-shell"
-import { CHANNELS, REELS, STAGES, getChannel } from "../../backend/lib/data"
+import { CHANNELS, REELS, STAGES, getChannel } from "@backend/data"
 import { AlertCircle } from "lucide-react"
 
 export default function PipelinePage() {

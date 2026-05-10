@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { AppShell } from "@/components/app-shell"
-import { CHANNELS, REELS, STAGES } from "../../backend/lib/data"
+import { CHANNELS, REELS, STAGES } from "@backend/data"
 import { ArrowUpRight, ArrowRight, Cpu, Mic, Wand2, Camera, Calendar, BarChart3 } from "lucide-react"
 
 function Stat({

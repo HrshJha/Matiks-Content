@@ -1,4 +1,4 @@
-import { cn } from '../../backend/lib/utils'
+import { cn } from "@backend/utils"
 
 function Kbd({ className, ...props }: React.ComponentProps<'kbd'>) {
   return (

@@ -8,9 +8,10 @@ import {
   Sparkles,
   LineChart,
   Network,
+  Settings,
   CommandIcon,
 } from "lucide-react"
-import { TICKER } from "../../backend/lib/data"
+import { TICKER } from "@backend/data"
 
 const NAV = [
   { href: "/", label: "Overview", icon: LayoutDashboard, mono: "01" },
@@ -20,6 +21,7 @@ const NAV = [
   { href: "/studio", label: "Studio", icon: Sparkles, mono: "05", live: true },
   { href: "/analytics", label: "Analytics", icon: LineChart, mono: "06" },
   { href: "/architecture", label: "Architecture", icon: Network, mono: "07" },
+  { href: "/settings", label: "Settings", icon: Settings, mono: "08" },
 ]
 
 export function AppShell({

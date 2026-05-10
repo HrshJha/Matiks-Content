@@ -1,5 +1,5 @@
 import { AppShell } from "@/components/app-shell"
-import { CHANNELS } from "../../backend/lib/data"
+import { CHANNELS } from "@backend/data"
 
 export default function ChannelsPage() {
   return (

@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { experimental_useObject as useObject } from "@ai-sdk/react"
 import { reelBriefSchema } from "@/app/api/studio/route"
-import { CHANNELS, NICHES, FORMATS } from "../../backend/lib/data"
+import { CHANNELS, NICHES, FORMATS } from "@backend/data"
 import { Loader2, Wand2, Copy, Check, AlertTriangle, ChevronRight } from "lucide-react"
 
 type Channel = (typeof CHANNELS)[number]

@@ -30,7 +30,7 @@ export async function getLatestMetric(reelId: string) {
   return data;
 }
 
-export async function createMetric(input: z.infer<typeof createMetricSchema>) {
+export async function createMetric(input: z.input<typeof createMetricSchema>) {
   const supabase = createServiceSupabaseClient();
   
   const validated = createMetricSchema.parse(input);

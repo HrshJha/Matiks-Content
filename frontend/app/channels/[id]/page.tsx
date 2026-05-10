@@ -1,5 +1,5 @@
 import { AppShell } from "@/components/app-shell";
-import { getChannel, REELS } from "../../backend/lib/data";
+import { getChannel, REELS } from "@backend/data";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Users, TrendingUp, Save, Share2 } from "lucide-react";

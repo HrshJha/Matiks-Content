@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { createBrowserSupabaseClient } from "../../backend/lib/supabase/client";
+import { createBrowserSupabaseClient } from "@backend/supabase/client";
 import { Loader2, Mail } from "lucide-react";
 
 export default function SignInPage() {
