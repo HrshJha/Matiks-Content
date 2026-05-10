@@ -41,9 +41,7 @@ export default function SignInPage() {
     <div className="min-h-svh bg-background bg-paper flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="size-12 rounded-sm bg-foreground text-background grid place-items-center mx-auto mb-4">
-            <span className="font-mono text-sm tracking-tight">M</span>
-          </div>
+          <img src="/frame_os_logo.svg" alt="Frame OS Logo" className="size-12 rounded-sm mx-auto mb-4" />
           <h1 className="font-serif text-3xl">Sign in to Frame</h1>
           <p className="mt-2 text-muted-foreground">
             Magic link authentication via Supabase

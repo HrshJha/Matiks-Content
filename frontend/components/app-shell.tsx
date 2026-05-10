@@ -39,9 +39,7 @@ export function AppShell({
       <header className="sticky top-0 z-30 border-b border-border/80 bg-background/85 backdrop-blur">
         <div className="flex items-center gap-3 px-4 sm:px-6 h-12">
           <Link href="/" className="flex items-center gap-2">
-            <div className="size-6 rounded-sm bg-foreground text-background grid place-items-center">
-              <span className="font-mono text-[10px] tracking-tight">M</span>
-            </div>
+            <img src="/frame_os_logo.svg" alt="Frame OS Logo" className="size-6 rounded-sm" />
             <span className="font-serif text-lg leading-none">
               Frame <span className="text-muted-foreground">OS</span>
             </span>
