@@ -1,13 +1,16 @@
 -- Matiks Content OS - Database Schema
 -- Run with: supabase db push or supabase migrations apply
 
+-- Cleanup existing tables for a fresh start
+drop table if exists metrics, assets, render_jobs, reels, briefs, signals, channels, patterns, agents cascade;
+
 -- Enable UUID extension
 create extension if not exists "uuid-ossp";
 
 -- Channels table
 create table channels (
   id uuid primary key default uuid_generate_v4(),
-  owner_id uuid references auth.users(id) on delete cascade not null,
+  owner_id uuid not null,
   handle text not null,
   niche text not null,
   language text not null default 'EN' check (language in ('EN','HI','ES','PT')),

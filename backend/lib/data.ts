@@ -216,21 +216,21 @@ export const CHANNELS: Channel[] = [
 export type PipelineStage =
   | "idea"
   | "research"
-  | "script"
-  | "asset_gen"
-  | "qa"
-  | "scheduled"
-  | "posted"
+  | "scripted"
+  | "voiceover"
+  | "assets"
+  | "rendered"
+  | "queued"
   | "analyzed"
 
 export const STAGES: { id: PipelineStage; label: string; sla: string; owner: string }[] = [
   { id: "idea", label: "Idea", sla: "auto · 5m", owner: "Trend Bot" },
   { id: "research", label: "Research", sla: "auto · 8m", owner: "Researcher" },
-  { id: "script", label: "Script", sla: "auto · 4m", owner: "Writer LLM" },
-  { id: "asset_gen", label: "Asset Gen", sla: "queue · 6–14m", owner: "Render Farm" },
-  { id: "qa", label: "QA", sla: "human · 30s", owner: "Operator" },
-  { id: "scheduled", label: "Scheduled", sla: "auto", owner: "Scheduler" },
-  { id: "posted", label: "Posted", sla: "—", owner: "Graph API" },
+  { id: "scripted", label: "Script", sla: "auto · 4m", owner: "Writer LLM" },
+  { id: "voiceover", label: "Voice", sla: "queue · 2m", owner: "ElevenLabs" },
+  { id: "assets", label: "Assets", sla: "queue · 6–14m", owner: "Render Farm" },
+  { id: "rendered", label: "Rendered", sla: "auto", owner: "Compiler" },
+  { id: "queued", label: "Queued", sla: "auto", owner: "Scheduler" },
   { id: "analyzed", label: "Analyzed", sla: "+24h", owner: "Feedback Bot" },
 ]
 
@@ -259,29 +259,29 @@ export const REELS: Reel[] = [
   { id: "00000000-0000-0000-0000-000000000211", channelId: "00000000-0000-0000-0000-000000000003", hook: "Sam Altman on what he was wrong about in 2024", stage: "research", niche: "interviews", scoreInbound: 88 },
   { id: "00000000-0000-0000-0000-000000000212", channelId: "00000000-0000-0000-0000-000000000007", hook: "Marcus Aurelius wrote one paragraph that destroys 'productivity'", stage: "research", niche: "stoic", scoreInbound: 76 },
 
-  // Script
-  { id: "00000000-0000-0000-0000-000000000221", channelId: "00000000-0000-0000-0000-000000000004", hook: "30-second pasta that fooled an Italian chef", stage: "script", niche: "recipes", scoreInbound: 73 },
-  { id: "00000000-0000-0000-0000-000000000222", channelId: "00000000-0000-0000-0000-000000000010", hook: "The 4-rep set that builds more muscle than 12", stage: "script", niche: "fitness", scoreInbound: 81 },
-  { id: "00000000-0000-0000-0000-000000000223", channelId: "00000000-0000-0000-0000-000000000002", hook: "Day 19 of building in public — first $1k MRR", stage: "script", niche: "indie", scoreInbound: 69 },
+  // Scripted
+  { id: "00000000-0000-0000-0000-000000000221", channelId: "00000000-0000-0000-0000-000000000004", hook: "30-second pasta that fooled an Italian chef", stage: "scripted", niche: "recipes", scoreInbound: 73 },
+  { id: "00000000-0000-0000-0000-000000000222", channelId: "00000000-0000-0000-0000-000000000010", hook: "The 4-rep set that builds more muscle than 12", stage: "scripted", niche: "fitness", scoreInbound: 81 },
+  { id: "00000000-0000-0000-0000-000000000223", channelId: "00000000-0000-0000-0000-000000000002", hook: "Day 19 of building in public — first $1k MRR", stage: "scripted", niche: "indie", scoreInbound: 69 },
 
-  // Asset Gen
-  { id: "00000000-0000-0000-0000-000000000231", channelId: "00000000-0000-0000-0000-000000000001", hook: "I asked GPT-5 to manage my emergency fund. Here's what happened.", stage: "asset_gen", niche: "finance", scoreInbound: 86 },
-  { id: "00000000-0000-0000-0000-000000000232", channelId: "00000000-0000-0000-0000-000000000007", hook: "Stop trying to be productive. Try this 1779 trick instead.", stage: "asset_gen", niche: "stoic", scoreInbound: 82 },
-  { id: "00000000-0000-0000-0000-000000000233", channelId: "00000000-0000-0000-0000-000000000008", hook: "₹399 ka product, ₹3000 ka kaam karta hai", stage: "asset_gen", niche: "dtc-hi", scoreInbound: 64 },
+  // Assets
+  { id: "00000000-0000-0000-0000-000000000231", channelId: "00000000-0000-0000-0000-000000000001", hook: "I asked GPT-5 to manage my emergency fund. Here's what happened.", stage: "assets", niche: "finance", scoreInbound: 86 },
+  { id: "00000000-0000-0000-0000-000000000232", channelId: "00000000-0000-0000-0000-000000000007", hook: "Stop trying to be productive. Try this 1779 trick instead.", stage: "assets", niche: "stoic", scoreInbound: 82 },
+  { id: "00000000-0000-0000-0000-000000000233", channelId: "00000000-0000-0000-0000-000000000008", hook: "₹399 ka product, ₹3000 ka kaam karta hai", stage: "assets", niche: "dtc-hi", scoreInbound: 64 },
 
-  // QA
-  { id: "00000000-0000-0000-0000-000000000241", channelId: "00000000-0000-0000-0000-000000000005", hook: "The Library of Alexandria didn't burn — it was sold", stage: "qa", niche: "history", blocked: "lip-sync drift @ 00:11", scoreInbound: 89 },
-  { id: "00000000-0000-0000-0000-000000000242", channelId: "00000000-0000-0000-0000-000000000004", hook: "3-ingredient breakfast that hits 40g protein", stage: "qa", niche: "recipes", scoreInbound: 75 },
+  // Rendered (QA equivalent)
+  { id: "00000000-0000-0000-0000-000000000241", channelId: "00000000-0000-0000-0000-000000000005", hook: "The Library of Alexandria didn't burn — it was sold", stage: "rendered", niche: "history", blocked: "lip-sync drift @ 00:11", scoreInbound: 89 },
+  { id: "00000000-0000-0000-0000-000000000242", channelId: "00000000-0000-0000-0000-000000000004", hook: "3-ingredient breakfast that hits 40g protein", stage: "rendered", niche: "recipes", scoreInbound: 75 },
 
-  // Scheduled
-  { id: "00000000-0000-0000-0000-000000000251", channelId: "00000000-0000-0000-0000-000000000009", hook: "The git command 90% of senior devs use wrong", stage: "scheduled", niche: "dev", scheduledFor: "Today · 7:42 PM IST", scoreInbound: 79 },
-  { id: "00000000-0000-0000-0000-000000000252", channelId: "00000000-0000-0000-0000-000000000011", hook: "MrBeast's 2026 RPM is lower than your nano-channel's", stage: "scheduled", niche: "creator", scheduledFor: "Today · 9:10 PM IST", scoreInbound: 72 },
-  { id: "00000000-0000-0000-0000-000000000253", channelId: "00000000-0000-0000-0000-000000000006", hook: "If you can't sleep, write the sentence you're avoiding", stage: "scheduled", niche: "therapy", scheduledFor: "Tomorrow · 6:30 AM IST", scoreInbound: 68 },
+  // Queued (Scheduled equivalent)
+  { id: "00000000-0000-0000-0000-000000000251", channelId: "00000000-0000-0000-0000-000000000009", hook: "The git command 90% of senior devs use wrong", stage: "queued", niche: "dev", scheduledFor: "Today · 7:42 PM IST", scoreInbound: 79 },
+  { id: "00000000-0000-0000-0000-000000000252", channelId: "00000000-0000-0000-0000-000000000011", hook: "MrBeast's 2026 RPM is lower than your nano-channel's", stage: "queued", niche: "creator", scheduledFor: "Today · 9:10 PM IST", scoreInbound: 72 },
+  { id: "00000000-0000-0000-0000-000000000253", channelId: "00000000-0000-0000-0000-000000000006", hook: "If you can't sleep, write the sentence you're avoiding", stage: "queued", niche: "therapy", scheduledFor: "Tomorrow · 6:30 AM IST", scoreInbound: 68 },
 
-  // Posted
-  { id: "00000000-0000-0000-0000-000000000261", channelId: "00000000-0000-0000-0000-000000000003", hook: "Jensen Huang: 'we should have hired the third-best person'", stage: "posted", niche: "interviews", views: 412_000, saveRate: 5.1 },
+  // Analyzed
+  { id: "00000000-0000-0000-0000-000000000261", channelId: "00000000-0000-0000-0000-000000000003", hook: "Jensen Huang: 'we should have hired the third-best person'", stage: "analyzed", niche: "interviews", views: 412_000, saveRate: 5.1 },
   { id: "00000000-0000-0000-0000-000000000262", channelId: "00000000-0000-0000-0000-000000000012", hook: "The Bugatti you can legally drive in India for ₹0 in tax", stage: "posted", niche: "cars", views: 1_240_000, saveRate: 3.8 },
-  { id: "00000000-0000-0000-0000-000000000263", channelId: "00000000-0000-0000-0000-000000000001", hook: "I let AI decide my groceries for 30 days", stage: "posted", niche: "finance", views: 312_000, saveRate: 7.2 },
+  { id: "00000000-0000-0000-0000-000000000263", channelId: "00000000-0000-0000-0000-000000000001", hook: "I let AI decide my groceries for 30 days", stage: "analyzed", niche: "finance", views: 312_000, saveRate: 7.2 },
 
   // Analyzed
   { id: "00000000-0000-0000-0000-000000000271", channelId: "00000000-0000-0000-0000-000000000005", hook: "Cleopatra was closer in time to the iPhone than to the Pyramids", stage: "analyzed", niche: "history", views: 4_120_000, saveRate: 9.4 },
