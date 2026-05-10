@@ -22,6 +22,7 @@ const NAV = [
   { href: "/analytics", label: "Analytics", icon: LineChart, mono: "06" },
   { href: "/architecture", label: "Architecture", icon: Network, mono: "07" },
   { href: "/settings", label: "Settings", icon: Settings, mono: "08" },
+  { href: "/sign-in", label: "Sign In", icon: CommandIcon, mono: "09" },
 ]
 
 export function AppShell({

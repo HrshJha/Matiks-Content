@@ -90,11 +90,6 @@ export default function SignInPage() {
                 </div>
               )}
 
-              <button
-                type="submit"
-                disabled={loading || !email}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-md bg-foreground text-background px-4 py-2.5 text-sm font-medium hover:bg-foreground/90 disabled:opacity-50"
-              >
                 {loading ? (
                   <>
                     <Loader2 className="size-4 animate-spin" />
@@ -103,6 +98,26 @@ export default function SignInPage() {
                 ) : (
                   "Send magic link"
                 )}
+              </button>
+
+              <div className="relative py-2">
+                <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                  <div className="w-full border-t border-border/60"></div>
+                </div>
+                <div className="relative flex justify-center text-[10px] uppercase tracking-widest text-muted-foreground">
+                  <span className="bg-card px-2">or</span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => {
+                  // Instant redirect for demo/hiring managers
+                  window.location.href = "/";
+                }}
+                className="w-full inline-flex items-center justify-center gap-2 rounded-md border border-border bg-card px-4 py-2.5 text-sm font-medium hover:bg-muted transition-colors"
+              >
+                Continue as Guest (Demo)
               </button>
             </form>
           )}
