@@ -19,7 +19,7 @@ if (!supabaseUrl || !supabaseServiceKey) {
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 // We need a dummy owner_id since we bypass auth for seeding
-const DEMO_OWNER_ID = "00000000-0000-0000-0000-000000000001";
+const DEMO_OWNER_ID = "dev-user-001";
 
 async function main() {
   console.log("🌱 Starting Matiks Content OS Data Seed...");
