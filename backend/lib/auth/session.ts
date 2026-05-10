@@ -27,3 +27,11 @@ export async function getSession() {
     }
   }
 }
+
+export async function requireUserId() {
+  const session = await getSession();
+  if (!session?.user?.id) {
+    throw new Error("Unauthorized: No session found");
+  }
+  return session.user.id;
+}
