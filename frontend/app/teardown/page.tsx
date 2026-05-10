@@ -295,40 +295,40 @@ export default function TeardownPage() {
             If I were building this from scratch today, I'd start entirely with the data model. No video rendering, no LLM calls until the state machine is perfectly defined. Here is roughly what the core Supabase table looks like to drive the entire factory:
           </p>
 
-          <div className="mt-5 bg-[#0a0a0a] text-[#d4d4d4] p-5 rounded-md border border-border/40 font-mono text-[13px] overflow-x-auto shadow-sm">
-            <div className="flex items-center gap-2 mb-3 text-muted-foreground/60 pb-2 border-b border-border/20">
+          <div className="mt-5 bg-[#0a0a0a] text-[#d4d4d4] p-5 rounded-md border border-border/40 font-mono text-[13px] shadow-sm">
+            <div className="flex items-center gap-2 mb-3 text-[#8b9eb0] pb-2 border-b border-[#2d3139]">
               <Database className="size-3" />
               <span>public.content_queue</span>
             </div>
-<pre className="leading-[1.7]"><code className="block">
-<span className="text-[#c678dd]">CREATE TABLE</span> <span className="text-[#61afef]">content_queue</span> (
-  <span className="text-[#e06c75]">id</span> <span className="text-[#d19a66]">uuid</span> <span className="text-[#c678dd]">PRIMARY KEY DEFAULT</span> <span className="text-[#56b6c2]">gen_random_uuid</span>(),
-  <span className="text-[#e06c75]">channel_id</span> <span className="text-[#d19a66]">text</span> <span className="text-[#c678dd]">NOT NULL</span>,
-  
-  <span className="text-[#5c6370] italic">-- The state machine transitions</span>
-  <span className="text-[#e06c75]">status</span> <span className="text-[#d19a66]">text</span> <span className="text-[#c678dd]">NOT NULL CHECK</span> (
-    status <span className="text-[#c678dd]">IN</span> (<span className="text-[#98c379]">'ideation'</span>, <span className="text-[#98c379]">'scripting'</span>, <span className="text-[#98c379]">'asset_gen'</span>, <span className="text-[#98c379]">'qa'</span>, <span className="text-[#98c379]">'scheduled'</span>, <span className="text-[#98c379]">'failed'</span>)
-  ),
-  
-  <span className="text-[#5c6370] italic">-- Operational state</span>
-  <span className="text-[#e06c75]">retry_count</span> <span className="text-[#d19a66]">int</span> <span className="text-[#c678dd]">DEFAULT</span> 0,
-  <span className="text-[#e06c75]">error_log</span> <span className="text-[#d19a66]">text</span>,
-  <span className="text-[#e06c75]">provider_used</span> <span className="text-[#d19a66]">text</span>,
-  <span className="text-[#e06c75]">qa_flagged</span> <span className="text-[#d19a66]">boolean</span> <span className="text-[#c678dd]">DEFAULT</span> false,
-  <span className="text-[#e06c75]">scheduled_for</span> <span className="text-[#d19a66]">timestamptz</span>,
-  
-  <span className="text-[#5c6370] italic">-- Ties back to the winning structural pattern</span>
-  <span className="text-[#e06c75]">hook_primitive_id</span> <span className="text-[#d19a66]">text</span> <span className="text-[#c678dd]">REFERENCES</span> <span className="text-[#61afef]">hook_primitives</span>(id), 
-  
-  <span className="text-[#5c6370] italic">-- The structured beats parsed by the video compiler</span>
-  <span className="text-[#e06c75]">script_payload</span> <span className="text-[#d19a66]">jsonb</span>, 
-  
-  <span className="text-[#5c6370] italic">-- Artifact pointers</span>
-  <span className="text-[#e06c75]">render_url</span> <span className="text-[#d19a66]">text</span>,
-  
-  <span className="text-[#e06c75]">created_at</span> <span className="text-[#d19a66]">timestamptz</span> <span className="text-[#c678dd]">DEFAULT</span> <span className="text-[#56b6c2]">now</span>()
-);
-</code></pre>
+            <div className="leading-[1.7] overflow-hidden break-words">
+              <div><span className="text-[#c678dd]">CREATE TABLE</span> <span className="text-[#61afef]">content_queue</span> (</div>
+              <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">id</span> <span className="text-[#d19a66]">uuid</span> <span className="text-[#c678dd]">PRIMARY KEY DEFAULT</span> <span className="text-[#56b6c2]">gen_random_uuid</span>(),</div>
+              <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">channel_id</span> <span className="text-[#d19a66]">text</span> <span className="text-[#c678dd]">NOT NULL</span>,</div>
+              
+              <div className="pl-4 mt-2"><span className="text-[#5c6370] italic">-- The state machine transitions</span></div>
+              <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">status</span> <span className="text-[#d19a66]">text</span> <span className="text-[#c678dd]">NOT NULL CHECK</span> (</div>
+              <div className="pl-8 break-all sm:break-normal">status <span className="text-[#c678dd]">IN</span> (<span className="text-[#98c379]">'ideation'</span>, <span className="text-[#98c379]">'scripting'</span>, <span className="text-[#98c379]">'asset_gen'</span>, <span className="text-[#98c379]">'qa'</span>, <span className="text-[#98c379]">'scheduled'</span>, <span className="text-[#98c379]">'failed'</span>)</div>
+              <div className="pl-4">),</div>
+              
+              <div className="pl-4 mt-2"><span className="text-[#5c6370] italic">-- Operational state</span></div>
+              <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">retry_count</span> <span className="text-[#d19a66]">int</span> <span className="text-[#c678dd]">DEFAULT</span> 0,</div>
+              <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">error_log</span> <span className="text-[#d19a66]">text</span>,</div>
+              <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">provider_used</span> <span className="text-[#d19a66]">text</span>,</div>
+              <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">qa_flagged</span> <span className="text-[#d19a66]">boolean</span> <span className="text-[#c678dd]">DEFAULT</span> false,</div>
+              <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">scheduled_for</span> <span className="text-[#d19a66]">timestamptz</span>,</div>
+              
+              <div className="pl-4 mt-2"><span className="text-[#5c6370] italic">-- Ties back to the winning structural pattern</span></div>
+              <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">hook_primitive_id</span> <span className="text-[#d19a66]">text</span> <span className="text-[#c678dd]">REFERENCES</span> <span className="text-[#61afef]">hook_primitives</span>(id),</div> 
+              
+              <div className="pl-4 mt-2"><span className="text-[#5c6370] italic">-- The structured beats parsed by the video compiler</span></div>
+              <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">script_payload</span> <span className="text-[#d19a66]">jsonb</span>,</div> 
+              
+              <div className="pl-4 mt-2"><span className="text-[#5c6370] italic">-- Artifact pointers</span></div>
+              <div className="pl-4 break-all sm:break-normal"><span className="text-[#e06c75]">render_url</span> <span className="text-[#d19a66]">text</span>,</div>
+              
+              <div className="pl-4 mt-2"><span className="text-[#e06c75]">created_at</span> <span className="text-[#d19a66]">timestamptz</span> <span className="text-[#c678dd]">DEFAULT</span> <span className="text-[#56b6c2]">now</span>()</div>
+              <div>);</div>
+            </div>
           </div>
 
           <div className="mt-12 space-y-5 text-base text-muted-foreground max-w-3xl leading-relaxed">
@@ -342,48 +342,48 @@ export default function TeardownPage() {
             This is the only thing that actually runs on a cron. A dumb loop that picks up the next stale job, locks the row so we don't double-render, and hands it to the right execution module.
           </p>
 
-          <div className="mt-5 bg-[#0a0a0a] text-[#d4d4d4] p-5 rounded-md border border-border/40 font-mono text-[13px] overflow-x-auto shadow-sm">
-            <div className="flex items-center gap-2 mb-3 text-muted-foreground/60 pb-2 border-b border-border/20">
+          <div className="mt-5 bg-[#0a0a0a] text-[#d4d4d4] p-5 rounded-md border border-border/40 font-mono text-[13px] shadow-sm">
+            <div className="flex items-center gap-2 mb-3 text-[#8b9eb0] pb-2 border-b border-[#2d3139]">
               <span className="text-yellow-400">⚡</span>
               <span>workers/queue-processor.ts</span>
             </div>
-<pre className="leading-[1.7]"><code className="block">
-<span className="text-[#c678dd]">async function</span> <span className="text-[#61afef]">processQueue</span>() {'{'}
-  <span className="text-[#5c6370] italic">// 1. Lock the next available job to prevent race conditions</span>
-  <span className="text-[#c678dd]">const</span> job = <span className="text-[#c678dd]">await</span> db.<span className="text-[#61afef]">raw</span>(<span className="text-[#98c379]">{"\`"}</span>
-    <span className="text-[#98c379]">UPDATE content_queue</span>
-    <span className="text-[#98c379]">SET status = 'processing', updated_at = now()</span>
-    <span className="text-[#98c379]">WHERE id = (</span>
-      <span className="text-[#98c379]">SELECT id FROM content_queue</span>
-      <span className="text-[#98c379]">WHERE status = 'ideation' AND retry_count &lt; 3</span>
-      <span className="text-[#98c379]">ORDER BY created_at ASC</span>
-      <span className="text-[#98c379]">FOR UPDATE SKIP LOCKED</span>
-      <span className="text-[#98c379]">LIMIT 1</span>
-    <span className="text-[#98c379]">) RETURNING *;</span>
-  <span className="text-[#98c379]">{"\`"}</span>);
+            <div className="leading-[1.7] overflow-hidden break-words">
+              <div><span className="text-[#c678dd]">async function</span> <span className="text-[#61afef]">processQueue</span>() {'{'}</div>
+              <div className="pl-4 mt-2"><span className="text-[#5c6370] italic">// 1. Lock the next available job to prevent race conditions</span></div>
+              <div className="pl-4 break-all sm:break-normal"><span className="text-[#c678dd]">const</span> job = <span className="text-[#c678dd]">await</span> db.<span className="text-[#61afef]">raw</span>(<span className="text-[#98c379]">{"\`"}</span></div>
+              <div className="pl-8 text-[#98c379] break-all sm:break-normal">UPDATE content_queue</div>
+              <div className="pl-8 text-[#98c379] break-all sm:break-normal">SET status = 'processing', updated_at = now()</div>
+              <div className="pl-8 text-[#98c379] break-all sm:break-normal">WHERE id = (</div>
+              <div className="pl-12 text-[#98c379] break-all sm:break-normal">SELECT id FROM content_queue</div>
+              <div className="pl-12 text-[#98c379] break-all sm:break-normal">WHERE status = 'ideation' AND retry_count &lt; 3</div>
+              <div className="pl-12 text-[#98c379] break-all sm:break-normal">ORDER BY created_at ASC</div>
+              <div className="pl-12 text-[#98c379] break-all sm:break-normal">FOR UPDATE SKIP LOCKED</div>
+              <div className="pl-12 text-[#98c379] break-all sm:break-normal">LIMIT 1</div>
+              <div className="pl-8 text-[#98c379] break-all sm:break-normal">) RETURNING *;</div>
+              <div className="pl-4"><span className="text-[#98c379]">{"\`"}</span>);</div>
 
-  <span className="text-[#c678dd]">if</span> (!job) <span className="text-[#c678dd]">return</span>; <span className="text-[#5c6370] italic">// Queue is empty</span>
+              <div className="pl-4 mt-3 break-all sm:break-normal"><span className="text-[#c678dd]">if</span> (!job) <span className="text-[#c678dd]">return</span>; <span className="text-[#5c6370] italic">// Queue is empty</span></div>
 
-  <span className="text-[#c678dd]">try</span> {'{'}
-    <span className="text-[#c678dd]">const</span> payload = <span className="text-[#c678dd]">await</span> <span className="text-[#56b6c2]">generateScript</span>(job.channel_id);
-    
-    <span className="text-[#c678dd]">await</span> db.<span className="text-[#61afef]">update</span>(<span className="text-[#98c379]">'content_queue'</span>, {'{'}
-      status: <span className="text-[#98c379]">'scripting'</span>,
-      script_payload: payload
-    {'}'}).<span className="text-[#61afef]">where</span>(<span className="text-[#98c379]">'id'</span>, job.id);
-    
-  {'}'} <span className="text-[#c678dd]">catch</span> (error) {'{'}
-    <span className="text-[#5c6370] italic">// 2. The reality of API integrations: things break.</span>
-    <span className="text-[#c678dd]">await</span> db.<span className="text-[#61afef]">raw</span>(<span className="text-[#98c379]">{"\`"}</span>
-      <span className="text-[#98c379]">UPDATE content_queue </span>
-      <span className="text-[#98c379]">SET status = 'failed', </span>
-      <span className="text-[#98c379]">    error_log = ?,</span>
-      <span className="text-[#98c379]">    retry_count = retry_count + 1</span>
-      <span className="text-[#98c379]">WHERE id = ?</span>
-    <span className="text-[#98c379]">{"\`"}</span>, [error.message, job.id]);
-  {'}'}
-{'}'}
-</code></pre>
+              <div className="pl-4 mt-3"><span className="text-[#c678dd]">try</span> {'{'}</div>
+              <div className="pl-8 break-all sm:break-normal"><span className="text-[#c678dd]">const</span> payload = <span className="text-[#c678dd]">await</span> <span className="text-[#56b6c2]">generateScript</span>(job.channel_id);</div>
+              
+              <div className="pl-8 mt-2 break-all sm:break-normal"><span className="text-[#c678dd]">await</span> db.<span className="text-[#61afef]">update</span>(<span className="text-[#98c379]">'content_queue'</span>, {'{'}</div>
+              <div className="pl-12 break-all sm:break-normal">status: <span className="text-[#98c379]">'scripting'</span>,</div>
+              <div className="pl-12 break-all sm:break-normal">script_payload: payload</div>
+              <div className="pl-8 break-all sm:break-normal">{'}'}).<span className="text-[#61afef]">where</span>(<span className="text-[#98c379]">'id'</span>, job.id);</div>
+              
+              <div className="pl-4 mt-2">{'}'} <span className="text-[#c678dd]">catch</span> (error) {'{'}</div>
+              <div className="pl-8 mt-2"><span className="text-[#5c6370] italic">// 2. The reality of API integrations: things break.</span></div>
+              <div className="pl-8 break-all sm:break-normal"><span className="text-[#c678dd]">await</span> db.<span className="text-[#61afef]">raw</span>(<span className="text-[#98c379]">{"\`"}</span></div>
+              <div className="pl-12 text-[#98c379] break-all sm:break-normal">UPDATE content_queue </div>
+              <div className="pl-12 text-[#98c379] break-all sm:break-normal">SET status = 'failed', </div>
+              <div className="pl-12 text-[#98c379] break-all sm:break-normal">    error_log = ?,</div>
+              <div className="pl-12 text-[#98c379] break-all sm:break-normal">    retry_count = retry_count + 1</div>
+              <div className="pl-12 text-[#98c379] break-all sm:break-normal">WHERE id = ?</div>
+              <div className="pl-8 break-all sm:break-normal"><span className="text-[#98c379]">{"\`"}</span>, [error.message, job.id]);</div>
+              <div className="pl-4">{'}'}</div>
+              <div>{'}'}</div>
+            </div>
           </div>
 
           <div className="mt-12 space-y-6 max-w-3xl">
