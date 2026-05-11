@@ -28,7 +28,7 @@ export default function StudioPage() {
             stack
           </span>{" "}
           Vercel AI SDK · @ai-sdk/google · gemini-2.5-flash · structured streaming via{" "}
-          <code className="font-mono">Output.object()</code>. Replace the model
+          <code className="font-mono">streamObject()</code>. Replace the model
           string to A/B test Claude Opus or GPT-5 — same output schema.
         </p>
       </section>

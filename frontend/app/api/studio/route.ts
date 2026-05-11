@@ -1,6 +1,6 @@
 // Live AI generation endpoint for Frame OS · /studio
 // Streams a structured "reel brief" — the unit the rest of the pipeline consumes.
-import { streamText, Output } from "ai"
+import { streamObject } from "ai"
 import { reelBriefSchema } from "@backend/schemas/reel-brief"
 import { studioRequestSchema } from "@backend/schemas/studio-request"
 import { checkStudioRateLimit } from "@backend/auth/ratelimit"
@@ -8,6 +8,9 @@ import { checkStudioRateLimit } from "@backend/auth/ratelimit"
 export const maxDuration = 60
 
 export async function POST(req: Request) {
+  console.log("POST /api/studio hit")
+  console.log(process.env.GOOGLE_GENERATIVE_AI_API_KEY ? "Google key present" : "GOOGLE KEY MISSING")
+
   // Use IP for rate limiting, fallback to generic "studio-req"
   const ip = req.headers.get("x-forwarded-for") ?? "studio-req"
   const { success } = await checkStudioRateLimit(ip)
@@ -54,11 +57,11 @@ Return only the structured object — no preamble.`
 
   const { google } = await import("@ai-sdk/google")
 
-  const result = streamText({
+  const result = streamObject({
     model: google("gemini-2.5-flash"),
+    schema: reelBriefSchema,
     system,
     prompt: `Generate one production-ready reel brief for @${channelHandle} (niche: ${niche}). Format: ${format}. Lean into the angle: ${trend}.`,
-    output: Output.object({ schema: reelBriefSchema }),
   })
 
   return result.toTextStreamResponse()

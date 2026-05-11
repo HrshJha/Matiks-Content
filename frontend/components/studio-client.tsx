@@ -30,13 +30,16 @@ export function StudioClient() {
   })
 
   const onGenerate = () => {
-    submit({
+    const payload = {
       channelHandle: channel.handle,
       niche,
       format,
       trend,
       language,
-    })
+    }
+
+    console.log("submitting", payload)
+    submit(payload)
   }
 
   return (
