@@ -248,6 +248,21 @@ export type Reel = {
   scoreInbound?: number
 }
 
+export type OutputExample = {
+  id: string
+  reelId: string
+  channelId: string
+  hook: string
+  format: string
+  provider: string
+  status: "sample_render" | "qa_hold" | "rendered"
+  duration: string
+  cost: string
+  videoUrl: string
+  posterUrl: string
+  note: string
+}
+
 export const REELS: Reel[] = [
   { id: "00000000-0000-0000-0000-000000000201", channelId: "00000000-0000-0000-0000-000000000101", hook: "The 3-account system that lets AI move money for you while you sleep", stage: "idea", niche: "finance", scoreInbound: 84 },
   { id: "00000000-0000-0000-0000-000000000202", channelId: "00000000-0000-0000-0000-000000000105", hook: "Why every clock in the British Empire was set wrong on purpose", stage: "idea", niche: "history", scoreInbound: 91 },
@@ -271,6 +286,51 @@ export const REELS: Reel[] = [
   { id: "00000000-0000-0000-0000-000000000263", channelId: "00000000-0000-0000-0000-000000000101", hook: "I let AI decide my groceries for 30 days", stage: "analyzed", niche: "finance", views: 312_000, saveRate: 7.2 },
   { id: "00000000-0000-0000-0000-000000000271", channelId: "00000000-0000-0000-0000-000000000105", hook: "Cleopatra was closer in time to the iPhone than to the Pyramids", stage: "analyzed", niche: "history", views: 4_120_000, saveRate: 9.4 },
   { id: "00000000-0000-0000-0000-000000000272", channelId: "00000000-0000-0000-0000-000000000107", hook: "Read this when you feel behind", stage: "analyzed", niche: "stoic", views: 2_310_000, saveRate: 11.1 },
+]
+
+export const OUTPUT_EXAMPLES: OutputExample[] = [
+  {
+    id: "output-example-001",
+    reelId: "00000000-0000-0000-0000-000000000241",
+    channelId: "00000000-0000-0000-0000-000000000105",
+    hook: "The Library of Alexandria didn't burn — it was sold",
+    format: "Veo-style archival b-roll + cinematic voiceover",
+    provider: "Creatomate assembly · Veo fallback slot",
+    status: "qa_hold",
+    duration: "0:04 sample",
+    cost: "$0.18 preview",
+    videoUrl: "/examples/midnight-history-sample.mp4",
+    posterUrl: "/examples/midnight-history-sample.jpg",
+    note: "Sample render asset showing where webhook output_url media appears after QA.",
+  },
+  {
+    id: "output-example-002",
+    reelId: "00000000-0000-0000-0000-000000000242",
+    channelId: "00000000-0000-0000-0000-000000000104",
+    hook: "3-ingredient breakfast that hits 40g protein",
+    format: "Stock food b-roll + AI voiceover",
+    provider: "Pexels API · ElevenLabs · Creatomate",
+    status: "rendered",
+    duration: "0:04 sample",
+    cost: "$0.09 preview",
+    videoUrl: "/examples/neon-recipes-sample.mp4",
+    posterUrl: "/examples/neon-recipes-sample.jpg",
+    note: "Sample render asset for the final-renders bucket path used by the posting worker.",
+  },
+  {
+    id: "output-example-003",
+    reelId: "00000000-0000-0000-0000-000000000231",
+    channelId: "00000000-0000-0000-0000-000000000101",
+    hook: "I asked GPT-5 to manage my emergency fund. Here's what happened.",
+    format: "AI avatar hook + dashboard b-roll",
+    provider: "Arcads · ElevenLabs · Submagic",
+    status: "sample_render",
+    duration: "0:04 sample",
+    cost: "$0.14 preview",
+    videoUrl: "/examples/ai-money-sample.mp4",
+    posterUrl: "/examples/ai-money-sample.jpg",
+    note: "Sample render asset linked to an assets-stage reel before the full render worker runs.",
+  },
 ]
 
 export function getChannel(id: string) {

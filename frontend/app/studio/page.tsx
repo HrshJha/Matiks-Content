@@ -27,8 +27,8 @@ export default function StudioPage() {
           <span className="font-mono text-[10px] uppercase tracking-widest text-foreground">
             stack
           </span>{" "}
-          Vercel AI SDK · @ai-sdk/google · gemini-2.5-flash · structured streaming via{" "}
-          <code className="font-mono">streamObject()</code>. Replace the model
+          Vercel AI SDK · @ai-sdk/google · Gemini model fallback · schema-validated object generation.
+          Replace the model
           string to A/B test Claude Opus or GPT-5 — same output schema.
         </p>
       </section>

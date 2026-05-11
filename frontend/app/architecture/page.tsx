@@ -1,4 +1,5 @@
 import { AppShell } from "@/components/app-shell"
+import { OutputExamples } from "@/components/output-examples"
 import {
   Database,
   Workflow,
@@ -393,6 +394,11 @@ export default function ArchitecturePage() {
               )
             })}
           </div>
+        </section>
+
+        {/* Generated output examples */}
+        <section className="mt-10 border border-border bg-background p-4 sm:p-6">
+          <OutputExamples />
         </section>
 
         {/* Data model */}

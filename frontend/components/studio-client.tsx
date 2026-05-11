@@ -4,6 +4,7 @@ import { useState } from "react"
 import { experimental_useObject as useObject } from "@ai-sdk/react"
 import { reelBriefSchema, type ReelBrief } from "@backend/schemas/reel-brief"
 import { CHANNELS, NICHES, FORMATS } from "@backend/data"
+import { OutputExamples } from "@/components/output-examples"
 import { Loader2, Wand2, Copy, Check, AlertTriangle, ChevronRight } from "lucide-react"
 
 type Channel = (typeof CHANNELS)[number]
@@ -174,7 +175,7 @@ export function StudioClient() {
 
           {error && (
             <div className="mt-2 rounded border border-destructive/40 bg-destructive/5 p-3 text-sm text-destructive">
-              {error.message}
+              {formatStudioError(error.message)}
             </div>
           )}
         </div>
@@ -405,31 +406,41 @@ function BriefOutput({
 
       {/* Next-stage handoff */}
       {!isStreaming && brief?.script && (
-        <div className="rounded-md border-2 border-foreground bg-card p-5">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-            Next stage handoff
-          </p>
-          <p className="mt-2 font-serif text-xl leading-tight">
-            This brief is now a job on the queue. Pipeline workers pick it up next.
-          </p>
-          <ul className="mt-3 space-y-1 text-sm text-muted-foreground">
-            <li className="flex items-center gap-2">
-              <ChevronRight className="size-3" /> ElevenLabs · render voiceover (channel-locked voice ID)
-            </li>
-            <li className="flex items-center gap-2">
-              <ChevronRight className="size-3" /> Asset workers · resolve each B-roll prompt (Pexels → Veo 3 fallback)
-            </li>
-            <li className="flex items-center gap-2">
-              <ChevronRight className="size-3" /> Submagic · burn-in captions on brand kit
-            </li>
-            <li className="flex items-center gap-2">
-              <ChevronRight className="size-3" /> Scheduler · post via Instagram Graph API at the channel&apos;s reach window
-            </li>
-            <li className="flex items-center gap-2">
-              <ChevronRight className="size-3" /> Feedback bot · pull insights at +24h and rewrite tomorrow&apos;s idea pool
-            </li>
-          </ul>
-        </div>
+        <>
+          <div className="rounded-md border-2 border-foreground bg-card p-5">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+              Next stage handoff
+            </p>
+            <p className="mt-2 font-serif text-xl leading-tight">
+              This brief is now a job on the queue. Pipeline workers pick it up next.
+            </p>
+            <ul className="mt-3 space-y-1 text-sm text-muted-foreground">
+              <li className="flex items-center gap-2">
+                <ChevronRight className="size-3" /> ElevenLabs · render voiceover (channel-locked voice ID)
+              </li>
+              <li className="flex items-center gap-2">
+                <ChevronRight className="size-3" /> Asset workers · resolve each B-roll prompt (Pexels → Veo 3 fallback)
+              </li>
+              <li className="flex items-center gap-2">
+                <ChevronRight className="size-3" /> Submagic · burn-in captions on brand kit
+              </li>
+              <li className="flex items-center gap-2">
+                <ChevronRight className="size-3" /> Scheduler · post via Instagram Graph API at the channel&apos;s reach window
+              </li>
+              <li className="flex items-center gap-2">
+                <ChevronRight className="size-3" /> Feedback bot · pull insights at +24h and rewrite tomorrow&apos;s idea pool
+              </li>
+            </ul>
+          </div>
+
+          <Section
+            n="08"
+            title="Output examples"
+            sub="Playable sample render assets for the next pipeline stage."
+          >
+            <OutputExamples compact limit={3} showIntro={false} />
+          </Section>
+        </>
       )}
     </div>
   )
@@ -520,4 +531,28 @@ function CopyJSON({ data }: { data: unknown }) {
       {copied ? "copied" : "copy json"}
     </button>
   )
+}
+
+function formatStudioError(message: string) {
+  try {
+    const parsed = JSON.parse(message) as {
+      error?: string
+      failures?: { model: string; statusCode?: number; message: string }[]
+      retryable?: boolean
+    }
+
+    if (!parsed.error) {
+      return message
+    }
+
+    const failedModels = parsed.failures
+      ?.map((failure) => `${failure.model}${failure.statusCode ? ` (${failure.statusCode})` : ""}`)
+      .join(", ")
+
+    return failedModels
+      ? `${parsed.error} Tried: ${failedModels}.`
+      : parsed.error
+  } catch {
+    return message
+  }
 }

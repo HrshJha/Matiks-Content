@@ -2,12 +2,14 @@
 
 ## Source Files
 - `frontend/app/architecture/page.tsx` — Architecture page component and all stack, data model, risk, roadmap, and closing-note content.
+- `frontend/components/output-examples.tsx` — Reusable generated output examples gallery with playable local MP4 sample render assets.
 - `frontend/components/app-shell.tsx` — Shared app shell visible around the page.
 - `frontend/components/command-menu.tsx` — Command palette labels and navigation routes.
 - `frontend/components/theme-toggle.tsx` — Theme toggle labels, aria-labels, and localStorage key.
 - `frontend/components/ui/command.tsx` — Command dialog primitives, default labels, and empty state text.
 - `frontend/components/ui/dialog.tsx` — Dialog primitive wrappers and close button screen-reader text.
 - `backend/lib/data.ts` — `TICKER` data consumed by `AppShell`.
+- `frontend/public/examples/*.mp4` and `frontend/public/examples/*.jpg` — Local sample render videos and posters used by the output examples gallery.
 - `backend/lib/utils.ts` — `cn(...inputs)` class-name merge helper consumed by shared UI primitives.
 - `frontend/app/layout.tsx` — Root metadata, viewport, fonts, theme bootstrap script, and production analytics wrapper.
 - `frontend/styles/globals.css` — Global color and chart tokens used by shell and page styling.
@@ -175,6 +177,20 @@ This is the system I would actually build at Matiks. Each layer is a separate Po
   - `GPT-5 (analyzer agent)`
   - `Postgres + materialized views`
   - `Slack digest to operator at 8am IST`
+
+### Generated Output Examples
+
+The Architecture page now includes a playable output gallery wired to `OUTPUT_EXAMPLES` in `backend/lib/data.ts`.
+
+Displayed examples:
+
+| Channel | Hook | Status | Asset |
+|---|---|---|---|
+| `@midnight.history` | `The Library of Alexandria didn't burn — it was sold` | `QA hold` | `/examples/midnight-history-sample.mp4` |
+| `@neon.recipes` | `3-ingredient breakfast that hits 40g protein` | `rendered` | `/examples/neon-recipes-sample.mp4` |
+| `@ai.money.engine` | `I asked GPT-5 to manage my emergency fund. Here's what happened.` | `sample render` | `/examples/ai-money-sample.mp4` |
+
+These are local MP4 sample render assets that exercise the same `render_url` / `output_url` surface filled by the render webhook once real Creatomate, Arcads, HeyGen, or Veo jobs complete.
 
 ### Data Model Cards
 
