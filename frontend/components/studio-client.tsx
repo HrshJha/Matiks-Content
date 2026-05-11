@@ -2,12 +2,16 @@
 
 import { useState } from "react"
 import { experimental_useObject as useObject } from "@ai-sdk/react"
+import type { DeepPartial } from "ai"
 import { reelBriefSchema, type ReelBrief } from "@backend/schemas/reel-brief"
 import { CHANNELS, NICHES, FORMATS } from "@backend/data"
 import { OutputExamples } from "@/components/output-examples"
-import { Loader2, Wand2, Copy, Check, AlertTriangle, ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { createReelBriefPdfFilename } from "@/components/pdf/pdf-utils"
+import { Loader2, Wand2, Copy, Check, AlertTriangle, ChevronRight, Download } from "lucide-react"
 
 type Channel = (typeof CHANNELS)[number]
+type StreamedReelBrief = DeepPartial<ReelBrief>
 
 const TREND_PRESETS = [
   "use a contrarian shock-stat hook",
@@ -198,7 +202,7 @@ export function StudioClient() {
 
         {(object || isLoading) && (
           <BriefOutput
-            brief={object as Partial<ReelBrief> | undefined}
+            brief={object}
             isStreaming={isLoading}
             channelHandle={channel.handle}
           />
@@ -258,10 +262,12 @@ function BriefOutput({
   isStreaming,
   channelHandle,
 }: {
-  brief: Partial<ReelBrief> | undefined
+  brief: StreamedReelBrief | undefined
   isStreaming: boolean
   channelHandle: string
 }) {
+  const completedBrief = !isStreaming && brief ? reelBriefSchema.safeParse(brief) : null
+
   return (
     <div className="space-y-6">
       {/* Status bar */}
@@ -287,7 +293,12 @@ function BriefOutput({
           )}
         </div>
         {brief && !isStreaming && (
-          <CopyJSON data={brief} />
+          <div className="flex items-center gap-2">
+            {completedBrief?.success && (
+              <DownloadPdfButton brief={completedBrief.data} channelHandle={channelHandle} />
+            )}
+            <CopyJSON data={brief} />
+          </div>
         )}
       </div>
 
@@ -327,8 +338,8 @@ function BriefOutput({
             <ScriptRow
               key={i}
               label={`BEAT ${i + 1}`}
-              line={b.line}
-              broll={b.broll}
+              line={b?.line}
+              broll={b?.broll}
               time={`0:${(15 + i * 8).toString().padStart(2, "0")} – 0:${(
                 23 +
                 i * 8
@@ -354,14 +365,16 @@ function BriefOutput({
         <Section n="04" title="Hashtags">
           <div className="rounded-md border border-border bg-card p-4 min-h-[80px]">
             <div className="flex flex-wrap gap-1.5">
-              {(brief?.hashtags ?? []).map((t, i) => (
-                <span
-                  key={i}
-                  className="font-mono text-xs px-2 py-0.5 rounded border border-border bg-background"
-                >
-                  #{t}
-                </span>
-              ))}
+              {(brief?.hashtags ?? [])
+                .filter((tag): tag is string => typeof tag === "string")
+                .map((t, i) => (
+                  <span
+                    key={i}
+                    className="font-mono text-xs px-2 py-0.5 rounded border border-border bg-background"
+                  >
+                    #{t}
+                  </span>
+                ))}
               {!brief?.hashtags && <Skeleton w="60%" />}
             </div>
           </div>
@@ -443,6 +456,95 @@ function BriefOutput({
         </>
       )}
     </div>
+  )
+}
+
+type PdfDownloadStatus = "idle" | "generating" | "success" | "failed"
+
+function DownloadPdfButton({
+  brief,
+  channelHandle,
+}: {
+  brief: ReelBrief
+  channelHandle: string
+}) {
+  const [status, setStatus] = useState<PdfDownloadStatus>("idle")
+
+  const onDownload = async () => {
+    const generatedAt = new Date()
+    const filename = createReelBriefPdfFilename(channelHandle, generatedAt)
+    let objectUrl: string | undefined
+
+    setStatus("generating")
+
+    try {
+      const response = await fetch("/api/export/reel-brief", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          brief,
+          channelHandle,
+          generatedAt: generatedAt.toISOString(),
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error(`PDF export failed with status ${response.status}`)
+      }
+
+      const blob = await response.blob()
+      objectUrl = URL.createObjectURL(blob)
+
+      const anchor = document.createElement("a")
+      anchor.href = objectUrl
+      anchor.download = filename
+      anchor.rel = "noopener"
+      document.body.appendChild(anchor)
+      anchor.click()
+      anchor.remove()
+
+      setStatus("success")
+      window.setTimeout(() => setStatus("idle"), 1800)
+    } catch (error) {
+      console.error(error)
+      setStatus("failed")
+      window.setTimeout(() => setStatus("idle"), 2600)
+    } finally {
+      if (objectUrl) {
+        const urlToRevoke = objectUrl
+        window.setTimeout(() => URL.revokeObjectURL(urlToRevoke), 1000)
+      }
+    }
+  }
+
+  const label = {
+    idle: "Download PDF",
+    generating: "Generating PDF…",
+    success: "Downloaded",
+    failed: "Export failed",
+  }[status]
+
+  return (
+    <Button
+      type="button"
+      variant="outline"
+      size="sm"
+      onClick={onDownload}
+      disabled={status === "generating"}
+      className="h-8 border-foreground/20 bg-background font-mono text-[10px] uppercase tracking-widest hover:bg-card"
+      aria-live="polite"
+    >
+      {status === "generating" ? (
+        <Loader2 className="size-3.5 animate-spin" />
+      ) : status === "success" ? (
+        <Check className="size-3.5" />
+      ) : (
+        <Download className="size-3.5" />
+      )}
+      {label}
+    </Button>
   )
 }
 
