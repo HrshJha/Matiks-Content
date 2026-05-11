@@ -1,64 +1,11 @@
 // Live AI generation endpoint for Frame OS · /studio
 // Streams a structured "reel brief" — the unit the rest of the pipeline consumes.
 import { streamText, Output } from "ai"
-import * as z from "zod"
+import { reelBriefSchema } from "@backend/schemas/reel-brief"
+import { studioRequestSchema } from "@backend/schemas/studio-request"
+import { checkStudioRateLimit } from "@backend/auth/ratelimit"
 
 export const maxDuration = 60
-
-export const reelBriefSchema = z.object({
-  cluster: z
-    .string()
-    .describe(
-      "Hook template / cluster name in 1-3 words, like 'shock-stat-historical' or 'invisible-cost'.",
-    ),
-  hooks: z
-    .array(z.string())
-    .describe(
-      "Three radically different ≤14-word hook lines for the same idea. Each must work as the first 3 seconds of an Instagram Reel. No emojis. No 'POV:'. No clichés. Output exactly 3.",
-    ),
-  script: z.object({
-    hook: z.string().describe("Opening 6-8 seconds, picks/refines the strongest hook above."),
-    context: z.string().describe("Build, 6-10 seconds, sets the stakes."),
-    beats: z
-      .array(
-        z.object({
-          line: z.string().describe("Voiceover line, ≤22 words."),
-          broll: z
-            .string()
-            .describe(
-              "B-roll prompt — concise. Either a stock query like 'pexels: man at desk laptop' or a generative prompt like 'veo: slow dolly into a 1990s television'.",
-            ),
-        }),
-      )
-      .describe("3-4 beats, each ≤8 seconds. Together ~30 seconds total. Output 3 or 4."),
-    cta: z.string().describe("Closing 3-5 seconds. Save / follow / comment trigger."),
-  }),
-  caption: z
-    .string()
-    .describe(
-      "Instagram caption (≤220 chars). 1 line, no hashtag spam, ends with hook reiteration or a question.",
-    ),
-  hashtags: z
-    .array(z.string())
-    .describe("5-10 lowercase hashtags without the # symbol."),
-  voiceDirection: z
-    .string()
-    .describe(
-      "One sentence on how the ElevenLabs voice should perform this — pace, energy, tone breaks.",
-    ),
-  thumbnailPrompt: z
-    .string()
-    .describe("A single image prompt for the cover frame. Vivid, single subject, high contrast."),
-  riskNotes: z
-    .string()
-    .describe(
-      "Brand-safety / factual-claim risks for QA. Use the literal string 'none' if clean.",
-    ),
-})
-
-export type ReelBrief = z.infer<typeof reelBriefSchema>
-
-import { checkStudioRateLimit } from "@backend/auth/ratelimit"
 
 export async function POST(req: Request) {
   // Use IP for rate limiting, fallback to generic "studio-req"
@@ -73,11 +20,16 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json().catch(() => ({}))
-  const niche: string = body.niche || "personal finance × AI tools"
-  const format: string = body.format || "AI avatar talking-head"
-  const trend: string = body.trend || "use a contrarian shock stat"
-  const channelHandle: string = body.channelHandle || "ai.money.engine"
-  const language: string = body.language || "EN"
+  const parsed = studioRequestSchema.safeParse(body)
+
+  if (!parsed.success) {
+    return Response.json(
+      { error: "Invalid studio request", details: parsed.error.flatten().fieldErrors },
+      { status: 422 },
+    )
+  }
+
+  const { niche, format, trend, channelHandle, language } = parsed.data
 
   const system = `You are the scripting service inside Frame OS — an autonomous media infrastructure layer that runs 10+ Instagram Reels channels at 2+ reels/day each. You output structured reel briefs that the rest of the pipeline (voiceover, asset gen, caption, scheduler) consumes directly.
 
@@ -87,6 +39,10 @@ Style rules:
 - Never invent statistics. If a number is needed, frame it as "research suggests" or generic.
 - Match the language: ${language}. If HI, write romanized Hindi (Hinglish) the way creators actually speak it.
 - Match the channel voice — keep it tight.
+- Output exactly 3 hooks.
+- Output 3 or 4 script beats.
+- Output 5-10 lowercase hashtags without the # symbol.
+- Keep caption at or under 220 characters.
 
 Channel: @${channelHandle}
 Niche: ${niche}

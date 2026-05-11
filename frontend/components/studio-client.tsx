@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { experimental_useObject as useObject } from "@ai-sdk/react"
-import { reelBriefSchema } from "@/app/api/studio/route"
+import { reelBriefSchema, type ReelBrief } from "@backend/schemas/reel-brief"
 import { CHANNELS, NICHES, FORMATS } from "@backend/data"
 import { Loader2, Wand2, Copy, Check, AlertTriangle, ChevronRight } from "lucide-react"
 
@@ -194,7 +194,7 @@ export function StudioClient() {
 
         {(object || isLoading) && (
           <BriefOutput
-            brief={object as Partial<typeof reelBriefSchema._type> | undefined}
+            brief={object as Partial<ReelBrief> | undefined}
             isStreaming={isLoading}
             channelHandle={channel.handle}
           />
@@ -254,7 +254,7 @@ function BriefOutput({
   isStreaming,
   channelHandle,
 }: {
-  brief: Partial<typeof reelBriefSchema._type> | undefined
+  brief: Partial<ReelBrief> | undefined
   isStreaming: boolean
   channelHandle: string
 }) {
