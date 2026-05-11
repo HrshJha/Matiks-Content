@@ -1,0 +1,8 @@
+{
+  "name": "ai-content-engine",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}
