@@ -6,6 +6,19 @@ import { requireUserId } from "@backend/auth/session";
 import { createChannelSchema } from "@backend/schemas/channel";
 import { ZodError } from "zod";
 
+function getErrorMessage(error: unknown) {
+  if (error instanceof Error) return error.message;
+  if (
+    error &&
+    typeof error === "object" &&
+    "message" in error &&
+    typeof error.message === "string"
+  ) {
+    return error.message;
+  }
+  return "Internal error";
+}
+
 export async function GET(_req: NextRequest) {
   try {
     const ownerId = await requireUserId();
@@ -16,7 +29,7 @@ export async function GET(_req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Internal error" },
+      { error: getErrorMessage(error) },
       { status: 500 }
     );
   }
@@ -43,8 +56,9 @@ export async function POST(req: NextRequest) {
     if (error instanceof Error && error.message.startsWith("Unauthorized")) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    console.error(error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Internal error" },
+      { error: getErrorMessage(error) },
       { status: 500 }
     );
   }
