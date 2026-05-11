@@ -5,11 +5,11 @@
   "crons": [
     {
       "path": "/api/post/run",
-      "schedule": "*/15 * * * *"
+      "schedule": "0 0 * * *"
     },
     {
       "path": "/api/metrics/sync",
-      "schedule": "0 * * * *"
+      "schedule": "0 1 * * *"
     },
     {
       "path": "/api/feedback/run",
