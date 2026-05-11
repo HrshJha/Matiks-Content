@@ -1,5 +1,6 @@
 import { AppShell } from "@/components/app-shell";
 import { CHANNELS } from "@backend/data";
+import { AddChannelDialog } from "@/components/add-channel-dialog";
 import {
   Shield,
   Key,
@@ -9,7 +10,6 @@ import {
   CheckCircle2,
   XCircle,
   AlertTriangle,
-  Plus,
 } from "lucide-react";
 
 // Simulated config state for each channel mapping
@@ -110,10 +110,7 @@ export default function SettingsPage() {
             </p>
             <h2 className="font-serif text-2xl mt-1">Per-channel settings</h2>
           </div>
-          <button className="inline-flex items-center gap-2 rounded-md bg-foreground text-background px-3 py-2 text-sm font-medium hover:bg-foreground/90">
-            <Plus className="size-3.5" />
-            Add channel
-          </button>
+          <AddChannelDialog />
         </div>
 
         <div className="space-y-3">
