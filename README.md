@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=320&color=0:050816,25:111827,50:6D28D9,75:A855F7,100:050816&text=Frame%0OOS&fontColor=ffffff&fontSize=58&fontAlignY=38&desc=Autonomous%20AI-Native%20Media%20Infrastructure&descAlignY=58&descSize=20&animation=fadeIn" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=320&color=0:050816,25:111827,50:6D28D9,75:A855F7,100:050816&text=FrameOS&fontColor=ffffff&fontSize=58&fontAlignY=38&desc=Autonomous%20AI-Native%20Media%20Infrastructure&descAlignY=58&descSize=20&animation=fadeIn" />
 
 <br/>
 
@@ -11,20 +11,20 @@
 
 <p align="center">
 
-<a href="https://github.com/HrshJha/Matiks-Content/stargazers">
-<img src="https://img.shields.io/github/stars/HrshJha/Matiks-Content?style=for-the-badge&logo=github&color=8B5CF6&labelColor=111827"/>
+<a href="https://github.com/HrshJha/FrameOS/stargazers">
+<img src="https://img.shields.io/github/stars/HrshJha/FrameOS?style=for-the-badge&logo=github&color=8B5CF6&labelColor=111827"/>
 </a>
 
-<a href="https://github.com/HrshJha/Matiks-Content/network/members">
-<img src="https://img.shields.io/github/forks/HrshJha/Matiks-Content?style=for-the-badge&logo=git&color=7C3AED&labelColor=111827"/>
+<a href="https://github.com/HrshJha/FrameOS/network/members">
+<img src="https://img.shields.io/github/forks/HrshJha/FrameOS?style=for-the-badge&logo=git&color=7C3AED&labelColor=111827"/>
 </a>
 
-<a href="https://github.com/HrshJha/Matiks-Content/issues">
-<img src="https://img.shields.io/github/issues/HrshJha/Matiks-Content?style=for-the-badge&logo=github&color=EC4899&labelColor=111827"/>
+<a href="https://github.com/HrshJha/FrameOS/issues">
+<img src="https://img.shields.io/github/issues/HrshJha/FrameOS?style=for-the-badge&logo=github&color=EC4899&labelColor=111827"/>
 </a>
 
-<a href="https://github.com/HrshJha/Matiks-Content/blob/main/LICENSE">
-<img src="https://img.shields.io/github/license/HrshJha/Matiks-Content?style=for-the-badge&color=06B6D4&labelColor=111827"/>
+<a href="https://github.com/HrshJha/FrameOS/blob/main/LICENSE">
+<img src="https://img.shields.io/github/license/HrshJha/FrameOS?style=for-the-badge&color=06B6D4&labelColor=111827"/>
 </a>
 
 </p>
@@ -79,21 +79,21 @@ FRAME OS transforms content creation from manual labor into a fully orchestrated
 
 ## 🖥️ Operator Command Center
 
-<img width="100%" alt="Dashboard Preview" src="https://raw.githubusercontent.com/HrshJha/Matiks-Content/main/assets/dashboard-preview.gif" />
+<img width="100%" alt="Dashboard Preview" src="https://raw.githubusercontent.com/HrshJha/FrameOS/main/assets/dashboard-preview.gif" />
 
 <br/>
 <br/>
 
 ## 🎬 AI Reel Generation Pipeline
 
-<img width="100%" alt="Pipeline Preview" src="https://raw.githubusercontent.com/HrshJha/Matiks-Content/main/assets/pipeline-preview.gif" />
+<img width="100%" alt="Pipeline Preview" src="https://raw.githubusercontent.com/HrshJha/FrameOS/main/assets/pipeline-preview.gif" />
 
 <br/>
 <br/>
 
 ## 📊 Analytics Intelligence Layer
 
-<img width="100%" alt="Analytics Preview" src="https://raw.githubusercontent.com/HrshJha/Matiks-Content/main/assets/analytics-preview.png" />
+<img width="100%" alt="Analytics Preview" src="https://raw.githubusercontent.com/HrshJha/FrameOS/main/assets/analytics-preview.png" />
 
 </div>
 
@@ -253,9 +253,9 @@ frame-os/
 ## ⚡ CLONE REPOSITORY
 
 ```bash
-git clone https://github.com/HrshJha/Matiks-Content.git
+git clone https://github.com/HrshJha/FrameOS.git
 
-cd Matiks-Content
+cd FrameOS
 ```
 
 ---
